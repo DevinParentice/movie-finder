@@ -5,10 +5,7 @@ import getGenres from "../../utils/getGenres";
 import getPeople from "../../utils/getPeople";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-	console.log(req.body);
-	let url: string = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=revenue.desc&include_adult=true&page=1`;
-
-	let searchQuery = "";
+	let searchQuery: string = "";
 
 	async function buildUrl() {
 		for (const key of Object.keys(req.body)) {
@@ -32,9 +29,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				searchQuery += `&with_cast=${await getPeople(req.body[key])}`;
 			}
 		}
-		url += searchQuery;
 		searchQuery = searchQuery.substring(1);
-		res.status(200).json({ apiUrl: url, subUrl: searchQuery });
+		res.status(200).json({ apiUrl: searchQuery });
 	}
 
 	await buildUrl();

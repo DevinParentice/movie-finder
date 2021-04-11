@@ -1,8 +1,11 @@
-import Head from "next/head";
 import React from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import Options from "../components/Options";
 
 export default function Home() {
+	const router = useRouter();
+
 	const submitForm = async (e) => {
 		e.preventDefault();
 		const formData = {
@@ -39,7 +42,7 @@ export default function Home() {
 		});
 
 		const result = await res.json();
-		console.log(result);
+		router.push(`/search/${result.apiUrl}`);
 	};
 
 	return (
