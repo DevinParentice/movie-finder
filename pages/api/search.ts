@@ -35,6 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				}
 			}
 		}
+		console.log(searchQuery);
 		searchQuery = searchQuery.substring(1);
 		res.status(200).json({ apiUrl: searchQuery });
 	}
