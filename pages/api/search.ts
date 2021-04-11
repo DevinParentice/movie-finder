@@ -33,10 +33,8 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 			}
 		}
 		url += searchQuery;
-
-		console.log(url);
-		res.status(200).json({ apiUrl: url });
+		return url;
 	}
 
-	buildUrl();
+	res.status(200).json({ apiUrl: buildUrl() });
 };
