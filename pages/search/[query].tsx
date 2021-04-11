@@ -1,4 +1,5 @@
 import { withRouter, NextRouter } from "next/router";
+import Image from "next/image";
 import React from "react";
 
 interface WithRouterProps {
@@ -40,7 +41,12 @@ class SearchResults extends React.Component<MyComponentProps> {
 									alt=""
 								/>
 							) : (
-								<h3>Poster not found</h3>
+								<Image
+									src="/NoPoster.png"
+									alt="No Poster Found"
+									width="220"
+									height="330"
+								/>
 							)}
 						</div>
 						<div>
