@@ -39,6 +39,7 @@ export default function Home() {
 		});
 
 		const result = await res.json();
+		console.log(result);
 	};
 
 	return (
