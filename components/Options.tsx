@@ -21,8 +21,8 @@ export default function Options() {
 			value: "starring",
 		},
 		{
-			name: "with the genre",
-			value: "genre",
+			name: "with the genre(s)",
+			value: "genres",
 		},
 		{
 			name: "released in the year",
@@ -37,16 +37,16 @@ export default function Options() {
 			value: "release-year-after",
 		},
 		{
-			name: "with a rating higher than",
+			name: "with a rating greater than (1-10)",
 			value: "rating-higher",
 		},
 		{
-			name: "with a rating lower than",
+			name: "with a rating less than (1-10)",
 			value: "rating-lower",
 		},
 	]);
 
-	const [chosenOptions, setChosenOptions] = useState({});
+	const [chosenOptions, setChosenOptions] = useState<object>({});
 
 	const isChosenByOther = (optionValue: string, selectName: string) => {
 		for (let key in chosenOptions) {
@@ -97,11 +97,12 @@ export default function Options() {
 								))}
 						</select>
 						<input
-							name={`input-${index}`}
+							name={`input${index}`}
 							type="text"
 							required={index === 0}
 							className="search-options"
 						/>
+						<p className="movies-text">,</p>
 					</div>
 				);
 			})}

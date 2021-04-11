@@ -3,21 +3,52 @@ import React from "react";
 import Options from "../components/Options";
 
 export default function Home() {
+	const submitForm = async (e) => {
+		e.preventDefault();
+		const formData = {
+			[e.target.select0.value]: e.target.input0.value,
+			...(e.target.select1.value && {
+				[e.target.select1.value]: e.target.input1.value,
+			}),
+			...(e.target.select2.value && {
+				[e.target.select2.value]: e.target.input2.value,
+			}),
+			...(e.target.select3.value && {
+				[e.target.select3.value]: e.target.input3.value,
+			}),
+			...(e.target.select4.value && {
+				[e.target.select4.value]: e.target.input4.value,
+			}),
+			...(e.target.select5.value && {
+				[e.target.select5.value]: e.target.input5.value,
+			}),
+			...(e.target.select6.value && {
+				[e.target.select6.value]: e.target.input6.value,
+			}),
+			...(e.target.select7.value && {
+				[e.target.select7.value]: e.target.input7.value,
+			}),
+		};
+
+		const res = await fetch("/api/search", {
+			body: JSON.stringify(formData),
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: "POST",
+		});
+
+		const result = await res.json();
+	};
+
 	return (
 		<div className="App">
 			<Head>
 				<title>Movie Finder</title>
 			</Head>
 			<h1>Find your movie:</h1>
-			<form method="POST">
-				<label htmlFor="amount">Find </label>
-				<select name="amount">
-					<option value="all">all</option>
-					<option value="one">one</option>
-					<option value="ten">ten</option>
-				</select>
-				<p className="movies-text">&nbsp;movie(s)</p>
-				<br />
+			<form onSubmit={submitForm}>
+				<p>Find movies</p>
 				<Options />
 				<br />
 				<input type="submit" value="Search" />
