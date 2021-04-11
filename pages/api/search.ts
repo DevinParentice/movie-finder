@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import getGenres from "../../utils/getGenres";
 import getPeople from "../../utils/getPeople";
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
 	console.log(req.body);
 	let url: string = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=revenue.desc&include_adult=true&page=1`;
 
@@ -33,8 +33,9 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 			}
 		}
 		url += searchQuery;
-		return url;
+		searchQuery = searchQuery.substring(1);
+		res.status(200).json({ apiUrl: url, subUrl: searchQuery });
 	}
 
-	res.status(200).json({ apiUrl: buildUrl() });
+	await buildUrl();
 };
