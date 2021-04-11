@@ -6,7 +6,7 @@ export default async function getPeople(name: string) {
 	);
 
 	const result = await res.json();
-	if (result.results[0].id) {
+	if (typeof result.results[0] !== "undefined") {
 		return result.results[0].id;
 	}
 

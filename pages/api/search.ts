@@ -24,9 +24,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 					getGenres(req.body[key])
 				)}`;
 			} else if (key === "directed-by") {
-				searchQuery += `&with_crew=${await getPeople(req.body[key])}`;
+				const castID: string = await getPeople(req.body[key]);
+				if (castID !== "") {
+					searchQuery += `&with_crew=${castID}`;
+				}
 			} else if (key === "starring") {
-				searchQuery += `&with_cast=${await getPeople(req.body[key])}`;
+				const actorID: string = await getPeople(req.body[key]);
+				if (actorID !== "") {
+					searchQuery += `&with_crew=${actorID}`;
+				}
 			}
 		}
 		searchQuery = searchQuery.substring(1);
