@@ -48,6 +48,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 	}
 
 	changeSort = (e) => {
+		e.preventDefault();
 		console.log(e.target.value);
 		this.setState(
 			{
@@ -88,7 +89,12 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 		return (
 			<div>
-				<select name="sort" id="sort" onChange={this.changeSort}>
+				<select
+					name="sort"
+					id="sort"
+					onChange={this.changeSort}
+					defaultValue={this.state.sortBy}
+				>
 					<option value="popularity.desc">Popularity Descending</option>
 					<option value="popularity.asc">Popularity Ascending</option>
 					<option value="primary_release_date.desc">
