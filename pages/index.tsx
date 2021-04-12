@@ -31,6 +31,9 @@ export default function Home() {
 			...(e.target.select7.value && {
 				[e.target.select7.value]: e.target.input7.value,
 			}),
+			...(e.target.select8.value && {
+				[e.target.select8.value]: e.target.input8.value,
+			}),
 		};
 
 		const res = await fetch("/api/search", {

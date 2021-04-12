@@ -1,4 +1,5 @@
 import { withRouter, NextRouter } from "next/router";
+import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect } from "react";
 
@@ -17,6 +18,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 			pageNumber: 1,
 			totalPages: 500,
 			results: [],
+			sortBy: "popularity.desc",
 		};
 	}
 
@@ -45,11 +47,28 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		window.removeEventListener("scroll", this.handleScroll);
 	}
 
+	changeSort = (e) => {
+		console.log(e.target.value);
+		this.setState(
+			{
+				sortBy: e.target.value,
+				pageNumber: 1,
+				results: [],
+			},
+			() => {
+				console.log(
+					`${this.state.sortBy} .............  ${this.state.pageNumber}`
+				);
+				this.fetchResults();
+			}
+		);
+	};
+
 	async fetchResults() {
-		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=revenue.desc&include_adult=true&include_video=false&page=${this.state.pageNumber}&${this.props.router.query.query}`;
+		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=${this.state.sortBy}&include_adult=true&include_video=false&page=${this.state.pageNumber}&${this.props.router.query.query}`;
 		const res = await fetch(url);
 		const data = await res.json();
-
+		console.log(url);
 		this.setState({
 			results: this.state.results.concat(data.results),
 			pageNumber: data.page + 1,
@@ -69,25 +88,47 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 		return (
 			<div>
+				<select name="sort" id="sort" onChange={this.changeSort}>
+					<option value="popularity.desc">Popularity Descending</option>
+					<option value="popularity.asc">Popularity Ascending</option>
+					<option value="primary_release_date.desc">
+						Release Date Descending
+					</option>
+					<option value="primary_release_date.asc">
+						Release Date Ascending
+					</option>
+					<option value="vote_average.desc">Average Rating Descending</option>
+					<option value="vote_average.asc">Average Rating Ascending</option>
+				</select>
 				{this.state.results.map((result) => (
 					<div key={result.id}>
 						<div>
-							{result.poster_path ? (
-								<img
-									src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${result.poster_path}`}
-									alt=""
-								/>
-							) : (
-								<Image
-									src="/NoPoster.png"
-									alt="No Poster Found"
-									width="220"
-									height="330"
-								/>
-							)}
+							<Link href={`/movie/${result.id}`}>
+								<a>
+									{result.poster_path ? (
+										<img
+											src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${result.poster_path}`}
+											alt={`${result.title} Poster`}
+											className="movie-poster"
+										/>
+									) : (
+										<Image
+											src="/NoPoster.png"
+											alt="No Poster Found"
+											width="220"
+											height="330"
+											className="movie-poster"
+										/>
+									)}
+								</a>
+							</Link>
 						</div>
 						<div>
-							<h2>{result.title}</h2>
+							<Link href={`/movie/${result.id}`}>
+								<a>
+									<h2>{result.title}</h2>
+								</a>
+							</Link>
 						</div>
 						<div>
 							<p>{result.overview}</p>

@@ -19,6 +19,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				searchQuery += `&vote_average.gte=${req.body[key]}`;
 			} else if (key === "rating-lower") {
 				searchQuery += `&vote_average.lte=${req.body[key]}`;
+			} else if (key === "title") {
+				searchQuery += `query=${encodeURIComponent(req.body[key])}`;
 			} else if (key === "genres") {
 				searchQuery += `&with_genres=${encodeURIComponent(
 					getGenres(req.body[key])
