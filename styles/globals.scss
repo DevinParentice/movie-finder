@@ -8,6 +8,10 @@
 	display: inline-block;
 }
 
+.movie-details {
+	display: flex;
+}
+
 .movie-poster {
 	border-radius: 8px;
 }
@@ -15,4 +19,12 @@
 	width: 200px;
 	height: auto;
 	border-radius: 8px;
+}
+
+.content-selector li {
+	display: inline;
+	margin: 10px;
+	&:hover {
+		cursor: pointer;
+	}
 }
