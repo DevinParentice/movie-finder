@@ -1,6 +1,6 @@
 import { withRouter, NextRouter } from "next/router";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -8,17 +8,54 @@ interface WithRouterProps {
 
 interface MyComponentProps extends WithRouterProps {}
 
-class SearchResults extends React.Component<MyComponentProps> {
-	state = {
-		loading: true,
-		results: [],
+class SearchResults extends React.Component<MyComponentProps, any> {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: true,
+			pageNumber: 1,
+			totalPages: 500,
+			results: [],
+		};
+	}
+
+	handleScroll = () => {
+		const bottom =
+			Math.ceil(window.innerHeight + window.scrollY) >=
+			document.documentElement.scrollHeight;
+
+		if (bottom) {
+			if (this.state.pageNumber === this.state.totalPages) {
+				window.removeEventListener("scroll", this.handleScroll);
+			} else {
+				this.fetchResults();
+			}
+		}
 	};
 
 	async componentDidMount() {
-		const url = `https://api.themoviedb.org/3/discover/movie?api_key=5a427101ad01eba2d670b6b25d872690&language=en-US&sort_by=revenue.desc&include_adult=true&page=1&${this.props.router.query.query}`;
+		this.fetchResults();
+		window.addEventListener("scroll", this.handleScroll, {
+			passive: true,
+		});
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener("scroll", this.handleScroll);
+	}
+
+	async fetchResults() {
+		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=revenue.desc&include_adult=true&include_video=false&page=${this.state.pageNumber}&${this.props.router.query.query}`;
 		const res = await fetch(url);
 		const data = await res.json();
-		this.setState({ results: data.results, loading: false });
+
+		this.setState({
+			results: this.state.results.concat(data.results),
+			pageNumber: data.page + 1,
+			totalPages: data.total_pages,
+			loading: false,
+		});
 	}
 
 	render() {
