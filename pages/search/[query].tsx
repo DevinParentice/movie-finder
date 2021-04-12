@@ -1,7 +1,8 @@
 import { withRouter, NextRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
+import Options from "../../components/Options";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -65,11 +66,12 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		);
 	};
 
+	submitForm = async (e) => {};
+
 	async fetchResults() {
-		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=${this.state.sortBy}&include_adult=true&include_video=false&page=${this.state.pageNumber}&${this.props.router.query.query}`;
+		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=${this.state.sortBy}&include_adult=false&include_video=false&page=${this.state.pageNumber}&${this.props.router.query.query}`;
 		const res = await fetch(url);
 		const data = await res.json();
-		console.log(url);
 		this.setState({
 			results: this.state.results.concat(data.results),
 			pageNumber: data.page + 1,
@@ -89,6 +91,12 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 		return (
 			<div>
+				<form onSubmit={this.submitForm}>
+					<p>Find movies</p>
+					<Options />
+					<br />
+					<input type="submit" value="Search" />
+				</form>
 				<select
 					name="sort"
 					id="sort"
@@ -107,7 +115,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 					<option value="vote_average.asc">Average Rating Ascending</option>
 				</select>
 				{this.state.results.map((result) => (
-					<div key={result.id}>
+					<div key={result.id + result.vote_count}>
 						<div>
 							<Link href={`/movie/${result.id}`}>
 								<a>

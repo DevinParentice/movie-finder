@@ -10,13 +10,8 @@ export default function Options() {
 		"select5",
 		"select6",
 		"select7",
-		"select8",
 	];
 	const [options] = useState([
-		{
-			name: "whose title contains",
-			value: "title",
-		},
 		{
 			name: "directed by",
 			value: "directed-by",
