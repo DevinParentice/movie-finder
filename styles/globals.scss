@@ -4,6 +4,11 @@
 	box-sizing: border-box;
 }
 
+body {
+	font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica",
+		"Arial", sans-serif;
+}
+
 .movies-text {
 	display: inline-block;
 }
@@ -12,12 +17,19 @@
 	display: flex;
 }
 
+.person-details {
+	p {
+		white-space: pre-line;
+	}
+}
+
 .movie-poster {
 	border-radius: 8px;
 }
 .movie-poster-lg {
 	width: 200px;
 	height: auto;
+	max-height: 300px;
 	border-radius: 8px;
 }
 

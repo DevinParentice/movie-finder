@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter, NextRouter } from "next/router";
+import Link from "next/link";
 import Image from "next/image";
+import formatDate from "../../utils/formatDate";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -25,14 +27,14 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 	}
 
 	async fetchMovie() {
-		const url = `https://api.themoviedb.org/3/movie/${this.props.router.query.id}?api_key=${process.env.API_KEY}`;
+		const url = `https://api.themoviedb.org/3/movie/${this.props.router.query.movieID}?api_key=${process.env.API_KEY}`;
 		const res = await fetch(url);
 		const data = await res.json();
 		this.setState({ movie: data });
 	}
 
 	async fetchCast() {
-		const url = `https://api.themoviedb.org/3/movie/${this.props.router.query.id}/credits?api_key=${process.env.API_KEY}`;
+		const url = `https://api.themoviedb.org/3/movie/${this.props.router.query.movieID}/credits?api_key=${process.env.API_KEY}`;
 		const res = await fetch(url);
 		const data = await res.json();
 		this.setState({ people: data, peopleDisplay: data.cast, loading: false });
@@ -44,14 +46,6 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 			genres += `${genre.name}, `;
 		});
 		return genres.slice(0, -2);
-	}
-
-	formatDate() {
-		let finalDate = "";
-		const date = new Date(this.state.movie.release_date);
-		const month = date.toLocaleString("default", { month: "long" });
-		finalDate = `${month} ${date.getDay()}, ${date.getFullYear()}`;
-		return finalDate;
 	}
 
 	render() {
@@ -83,7 +77,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 					)}
 					<div>
 						<h1>{this.state.movie.title}</h1>
-						<h2>Released {this.formatDate()}</h2>
+						<h2>Released {formatDate(this.state.movie.release_date)}</h2>
 						{this.state.people.crew.map((castMember) => {
 							if (castMember.job === "Director") {
 								return (
@@ -120,18 +114,26 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 					</ul>
 				</div>
 				<div>
-					{this.state.peopleDisplay.map((person) => {
+					{this.state.peopleDisplay.map((person, index) => {
 						if (person.character) {
 							return (
-								<p>
-									{person.name} - {person.character}
-								</p>
+								<Link href={`/person/${person.id}`} key={index}>
+									<a className="person-link">
+										<p>
+											{person.name} - {person.character}
+										</p>
+									</a>
+								</Link>
 							);
 						} else {
 							return (
-								<p>
-									{person.name} - {person.job}
-								</p>
+								<Link href={`/person/${person.id}`} key={index}>
+									<a className="person-link">
+										<p>
+											{person.name} - {person.job}
+										</p>
+									</a>
+								</Link>
 							);
 						}
 					})}

@@ -50,7 +50,6 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 	changeSort = (e) => {
 		e.preventDefault();
-		console.log(e.target.value);
 		this.setState(
 			{
 				sortBy: e.target.value,
