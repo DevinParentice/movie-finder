@@ -16,6 +16,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 		this.state = {
 			person: {},
 			credits: {},
+			creditsDisplay: {},
 			loading: true,
 		};
 	}
@@ -36,7 +37,19 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 		const url = `https://api.themoviedb.org/3/person/${this.props.router.query.personID}/movie_credits?api_key=${process.env.API_KEY}&language=en-US`;
 		const res = await fetch(url);
 		const data = await res.json();
-		this.setState({ credits: data, loading: false });
+		if (data.cast.length >= data.crew.length) {
+			this.setState({
+				credits: data,
+				creditsDisplay: data.cast,
+				loading: false,
+			});
+		} else {
+			this.setState({
+				credits: data,
+				creditsDisplay: data.crew,
+				loading: false,
+			});
+		}
 	}
 
 	render() {
@@ -71,6 +84,49 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 						<h2>Born {formatDate(this.state.person.birthday)}</h2>
 						<p>{this.state.person.biography}</p>
 					</div>
+				</div>
+				<div>
+					<ul className="content-selector">
+						<li
+							onClick={() => {
+								this.setState({ creditsDisplay: this.state.credits.cast });
+							}}
+						>
+							Acted In
+						</li>
+						<li
+							onClick={() => {
+								this.setState({ creditsDisplay: this.state.credits.crew });
+							}}
+						>
+							Worked On
+						</li>
+					</ul>
+				</div>
+				<div>
+					{this.state.creditsDisplay.map((role, index) => {
+						if (role.character) {
+							return (
+								<Link href={`/movie/${role.id}`} key={index}>
+									<a className="person-link">
+										<p>
+											{role.title} - {role.character}
+										</p>
+									</a>
+								</Link>
+							);
+						} else {
+							return (
+								<Link href={`/movie/${role.id}`} key={index}>
+									<a className="person-link">
+										<p>
+											{role.title} - {role.job}
+										</p>
+									</a>
+								</Link>
+							);
+						}
+					})}
 				</div>
 			</div>
 		);
