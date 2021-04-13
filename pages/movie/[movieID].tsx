@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter, NextRouter } from "next/router";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import formatDate from "../../utils/formatDate";
@@ -14,49 +15,22 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 		super(props);
 
 		this.state = {
-			movie: {},
-			people: {},
-			peopleDisplay: {},
+			movie: props.movie,
+			people: props.people,
+			peopleDisplay: props.peopleDisplay,
 			loading: true,
 		};
 	}
-
-	async componentDidMount() {
-		await this.fetchMovie();
-		await this.fetchCast();
-	}
-
-	async fetchMovie() {
-		const url = `https://api.themoviedb.org/3/movie/${this.props.router.query.movieID}?api_key=${process.env.API_KEY}`;
-		const res = await fetch(url);
-		const data = await res.json();
-		this.setState({ movie: data });
-	}
-
-	async fetchCast() {
-		const url = `https://api.themoviedb.org/3/movie/${this.props.router.query.movieID}/credits?api_key=${process.env.API_KEY}`;
-		const res = await fetch(url);
-		const data = await res.json();
-		this.setState({ people: data, peopleDisplay: data.cast, loading: false });
-	}
-
 	formatGenres() {
 		let genres = "";
-		this.state.movie.genres.map((genre) => {
-			genres += `${genre.name}, `;
-		});
+		this.state.movie.genres &&
+			this.state.movie.genres.map((genre) => {
+				genres += `${genre.name}, `;
+			});
 		return genres.slice(0, -2);
 	}
 
 	render() {
-		if (this.state.loading) {
-			return (
-				<div>
-					<h1>Loading...</h1>
-				</div>
-			);
-		}
-
 		return (
 			<div>
 				<div className="movie-details">
@@ -78,15 +52,16 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 					<div>
 						<h1>{this.state.movie.title}</h1>
 						<h2>Released {formatDate(this.state.movie.release_date)}</h2>
-						{this.state.people.crew.map((castMember) => {
-							if (castMember.job === "Director") {
-								return (
-									<h2 key={castMember.credit_id}>
-										Directed by {castMember.name}
-									</h2>
-								);
-							}
-						})}
+						{this.state.people.crew &&
+							this.state.people.crew.map((castMember) => {
+								if (castMember.job === "Director") {
+									return (
+										<h2 key={castMember.credit_id}>
+											Directed by {castMember.name}
+										</h2>
+									);
+								}
+							})}
 						<div>
 							<h3>{this.formatGenres()}</h3>
 						</div>
@@ -114,33 +89,54 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 					</ul>
 				</div>
 				<div>
-					{this.state.peopleDisplay.map((person, index) => {
-						if (person.character) {
-							return (
-								<Link href={`/person/${person.id}`} key={index}>
-									<a className="person-link">
-										<p>
-											{person.name} - {person.character}
-										</p>
-									</a>
-								</Link>
-							);
-						} else {
-							return (
-								<Link href={`/person/${person.id}`} key={index}>
-									<a className="person-link">
-										<p>
-											{person.name} - {person.job}
-										</p>
-									</a>
-								</Link>
-							);
-						}
-					})}
+					{this.state.peopleDisplay &&
+						this.state.peopleDisplay.map((person, index) => {
+							if (person.character) {
+								return (
+									<Link href={`/person/${person.id}`} key={index}>
+										<a className="person-link">
+											<p>
+												{person.name} - {person.character}
+											</p>
+										</a>
+									</Link>
+								);
+							} else {
+								return (
+									<Link href={`/person/${person.id}`} key={index}>
+										<a className="person-link">
+											<p>
+												{person.name} - {person.job}
+											</p>
+										</a>
+									</Link>
+								);
+							}
+						})}
 				</div>
 			</div>
 		);
 	}
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	const movieUrl = `https://api.themoviedb.org/3/movie/${query.movieID}?api_key=${process.env.API_KEY}`;
+	const res1 = await fetch(movieUrl);
+	const movie = await res1.json();
+
+	const peopleUrl = `https://api.themoviedb.org/3/movie/${query.movieID}/credits?api_key=${process.env.API_KEY}`;
+	const res2 = await fetch(peopleUrl);
+	const people = await res2.json();
+
+	const peopleDisplay = people.cast;
+
+	return {
+		props: {
+			movie,
+			people,
+			peopleDisplay,
+		},
+	};
+};
 
 export default withRouter(MoviePage);

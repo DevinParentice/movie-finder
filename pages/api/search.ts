@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			} else if (key === "release-year-before") {
 				searchQuery += `&primary_release_date.lte=${req.body[key]}-12-31`;
 			} else if (key === "release-year-after") {
-				searchQuery += `&primary_release_date.gte=${req.body[key]}-1-01`;
+				searchQuery += `&primary_release_date.gte=${req.body[key]}-01-01`;
 			} else if (key === "rating-higher") {
 				searchQuery += `&vote_average.gte=${req.body[key]}`;
 			} else if (key === "rating-lower") {

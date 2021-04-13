@@ -1,4 +1,5 @@
 import { withRouter, NextRouter } from "next/router";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
@@ -15,10 +16,9 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		super(props);
 
 		this.state = {
-			loading: true,
 			pageNumber: 1,
 			totalPages: 500,
-			results: [],
+			results: props.results,
 			sortBy: "popularity.desc",
 		};
 	}
@@ -38,7 +38,6 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 	};
 
 	async componentDidMount() {
-		this.fetchResults();
 		window.addEventListener("scroll", this.handleScroll, {
 			passive: true,
 		});
@@ -57,9 +56,6 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 				results: [],
 			},
 			() => {
-				console.log(
-					`${this.state.sortBy} .............  ${this.state.pageNumber}`
-				);
 				this.fetchResults();
 			}
 		);
@@ -68,22 +64,18 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 	submitForm = async (e) => {};
 
 	async fetchResults() {
+		this.setState({ pageNumber: this.state.pageNumber + 1 });
+
 		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=${this.state.sortBy}&include_adult=false&include_video=false&page=${this.state.pageNumber}&${this.props.router.query.query}`;
 		const res = await fetch(url);
 		const data = await res.json();
 		this.setState({
 			results: this.state.results.concat(data.results),
-			pageNumber: data.page + 1,
 			totalPages: data.total_pages,
-			loading: false,
 		});
 	}
 
 	render() {
-		if (this.state.loading) {
-			return <div>Loading...</div>;
-		}
-
 		if (!this.state.results.length) {
 			return <div>Search returned no results.</div>;
 		}
@@ -158,5 +150,17 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		);
 	}
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=$1&${query.query}`;
+	const res = await fetch(url);
+	const data = await res.json();
+	const results = data.results;
+	return {
+		props: {
+			results,
+		},
+	};
+};
 
 export default withRouter(SearchResults);

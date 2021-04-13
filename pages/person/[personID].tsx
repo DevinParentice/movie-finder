@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter, NextRouter } from "next/router";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import formatDate from "../../utils/formatDate";
@@ -14,53 +15,13 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 		super(props);
 
 		this.state = {
-			person: {},
-			credits: {},
-			creditsDisplay: {},
-			loading: true,
+			person: props.person,
+			credits: props.credits,
+			creditsDisplay: props.creditsDisplay,
 		};
 	}
 
-	async componentDidMount() {
-		await this.fetchPerson();
-		await this.fetchCredits();
-	}
-
-	async fetchPerson() {
-		const url = `https://api.themoviedb.org/3/person/${this.props.router.query.personID}?api_key=${process.env.API_KEY}&language=en-US`;
-		const res = await fetch(url);
-		const data = await res.json();
-		this.setState({ person: data });
-	}
-
-	async fetchCredits() {
-		const url = `https://api.themoviedb.org/3/person/${this.props.router.query.personID}/movie_credits?api_key=${process.env.API_KEY}&language=en-US`;
-		const res = await fetch(url);
-		const data = await res.json();
-		if (data.cast.length >= data.crew.length) {
-			this.setState({
-				credits: data,
-				creditsDisplay: data.cast,
-				loading: false,
-			});
-		} else {
-			this.setState({
-				credits: data,
-				creditsDisplay: data.crew,
-				loading: false,
-			});
-		}
-	}
-
 	render() {
-		if (this.state.loading) {
-			return (
-				<div>
-					<h1>Loading...</h1>
-				</div>
-			);
-		}
-
 		return (
 			<div>
 				<div className="movie-details">
@@ -132,5 +93,29 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 		);
 	}
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	const personUrl = `https://api.themoviedb.org/3/person/${query.personID}?api_key=${process.env.API_KEY}&language=en-US`;
+	const res1 = await fetch(personUrl);
+	const person = await res1.json();
+
+	const url = `https://api.themoviedb.org/3/person/${query.personID}/movie_credits?api_key=${process.env.API_KEY}&language=en-US`;
+	const res2 = await fetch(url);
+	const credits = await res2.json();
+	let creditsDisplay = [];
+	if (credits.cast.length >= credits.crew.length) {
+		creditsDisplay = credits.cast;
+	} else {
+		creditsDisplay = credits.crew;
+	}
+
+	return {
+		props: {
+			person,
+			credits,
+			creditsDisplay,
+		},
+	};
+};
 
 export default withRouter(PersonPage);
