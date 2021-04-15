@@ -12,7 +12,7 @@ export default function Options() {
 		},
 		{
 			name: "starring",
-			value: "starring",
+			value: "starring-in",
 		},
 		{
 			name: "with the genre(s)",
@@ -63,7 +63,7 @@ export default function Options() {
 					<p className="movies-text">,</p>
 				</>
 			);
-		} else if (inputs[index] === "starring") {
+		} else if (inputs[index] === "starring-in") {
 			return (
 				<>
 					<input
@@ -78,10 +78,9 @@ export default function Options() {
 		} else if (inputs[index] === "genres") {
 			return (
 				<>
-					<select name={`input${index}`} id="genre-select">
+					<select name={`input${index}`} placeholder="Select Genres">
 						<option value="action">Action</option>
-						<option value="adventure">Adventure</option>
-						<option value="animation">Animation</option>
+						<option value="adventure">Adventue</option>
 						<option value="comedy">Comedy</option>
 						<option value="crime">Crime</option>
 						<option value="documentary">Documentary</option>

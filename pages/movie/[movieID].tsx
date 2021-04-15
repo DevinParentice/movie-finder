@@ -120,11 +120,11 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-	const movieUrl = `https://api.themoviedb.org/3/movie/${query.movieID}?api_key=${process.env.API_KEY}`;
+	const movieUrl = `https://api.themoviedb.org/3/movie/${query.movieID}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
 	const res1 = await fetch(movieUrl);
 	const movie = await res1.json();
 
-	const peopleUrl = `https://api.themoviedb.org/3/movie/${query.movieID}/credits?api_key=${process.env.API_KEY}`;
+	const peopleUrl = `https://api.themoviedb.org/3/movie/${query.movieID}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
 	const res2 = await fetch(peopleUrl);
 	const people = await res2.json();
 

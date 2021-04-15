@@ -11,7 +11,6 @@ export default function Home() {
 		const arr = [...e.target.elements].slice(0, -2);
 		let formData = {};
 		for (let i = 0; i < arr.length; i += 2) {
-			console.log(`${arr[i].value} ---> ${arr[i + 1].value}`);
 			formData[arr[i].value] = arr[i + 1].value;
 		}
 		const res = await fetch("/api/search", {

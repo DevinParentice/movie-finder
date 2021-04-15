@@ -95,11 +95,11 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-	const personUrl = `https://api.themoviedb.org/3/person/${query.personID}?api_key=${process.env.API_KEY}&language=en-US`;
+	const personUrl = `https://api.themoviedb.org/3/person/${query.personID}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
 	const res1 = await fetch(personUrl);
 	const person = await res1.json();
 
-	const url = `https://api.themoviedb.org/3/person/${query.personID}/movie_credits?api_key=${process.env.API_KEY}&language=en-US`;
+	const url = `https://api.themoviedb.org/3/person/${query.personID}/movie_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
 	const res2 = await fetch(url);
 	const credits = await res2.json();
 	let creditsDisplay = [];
