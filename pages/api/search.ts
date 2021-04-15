@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			} else if (key === "starring-in") {
 				const actorID: string = await getPeople(req.body[key]);
 				if (actorID !== "") {
-					searchQuery += `&with_crew=${actorID}`;
+					searchQuery += `&with_cast=${actorID}`;
 				}
 			}
 		}
