@@ -15,7 +15,7 @@ export default function Options() {
 			value: "starring-in",
 		},
 		{
-			name: "with the genre(s)",
+			name: "with the genre",
 			value: "genres",
 		},
 		{
@@ -39,16 +39,6 @@ export default function Options() {
 			value: "rating-lower",
 		},
 	]);
-
-	const handleChange = (e) => {
-		setChosenOptions({ ...chosenOptions, [e.target.name]: e.target.value });
-		if (!selects[parseInt(e.target.name.slice(-1)) + 1]) {
-			setSelects(selects.concat(`select${selects.length}`));
-		}
-		let arr = [...inputs];
-		arr[parseInt(e.target.name.slice(-1))] = e.target.value;
-		setInputs(arr);
-	};
 
 	const getInput = (index: number) => {
 		if (inputs[index] === "directed-by") {
@@ -135,6 +125,18 @@ export default function Options() {
 		}
 	};
 
+	const handleChange = (e) => {
+		if (e.target.value !== "genres") {
+			setChosenOptions({ ...chosenOptions, [e.target.name]: e.target.value });
+		}
+		if (!selects[parseInt(e.target.name.slice(-1)) + 1]) {
+			setSelects(selects.concat(`select${selects.length}`));
+		}
+		let arr = [...inputs];
+		arr[parseInt(e.target.name.slice(-1))] = e.target.value;
+		setInputs(arr);
+	};
+
 	const isChosenByOther = (optionValue, selectName) => {
 		for (let key in chosenOptions) {
 			if (key !== selectName) {
@@ -156,7 +158,6 @@ export default function Options() {
 							id={`select-${index}`}
 							onChange={handleChange}
 							required={index === 0}
-							value={chosenOptions[select] || ""}
 						>
 							<option value="">Choose a parameter...</option>
 							{options
