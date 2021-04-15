@@ -102,6 +102,8 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 					<option value="primary_release_date.asc">
 						Release Date Ascending
 					</option>
+					<option value="revenue.desc">Revenue Descending</option>
+					<option value="revenue.asc">Revenue Ascending</option>
 					<option value="vote_average.desc">Average Rating Descending</option>
 					<option value="vote_average.asc">Average Rating Ascending</option>
 					<option value="vote_count.desc">Rating Count Descending</option>
