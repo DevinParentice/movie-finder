@@ -38,6 +38,14 @@ export default function Options() {
 			name: "with a rating less than",
 			value: "rating-lower",
 		},
+		{
+			name: "with more ratings than",
+			value: "rating-count-higher",
+		},
+		{
+			name: "with less ratings than",
+			value: "rating-count-lower",
+		},
 	]);
 
 	const getInput = (index: number) => {
@@ -118,6 +126,21 @@ export default function Options() {
 						name={`input${index}`}
 						required={index === 0}
 						placeholder="0.0 - 10.0"
+					/>
+					<p className="movies-text">,</p>
+				</>
+			);
+		} else if (
+			inputs[index] === "rating-count-higher" ||
+			inputs[index] === "rating-count-lower"
+		) {
+			return (
+				<>
+					<input
+						type="text"
+						name={`input${index}`}
+						required={index === 0}
+						placeholder="Enter amount of ratings"
 					/>
 					<p className="movies-text">,</p>
 				</>
