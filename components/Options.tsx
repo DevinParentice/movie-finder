@@ -7,7 +7,7 @@ export default function Options() {
 
 	const [options] = useState([
 		{
-			name: "directed by",
+			name: "worked on by",
 			value: "directed-by",
 		},
 		{

@@ -104,6 +104,8 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 					</option>
 					<option value="vote_average.desc">Average Rating Descending</option>
 					<option value="vote_average.asc">Average Rating Ascending</option>
+					<option value="vote_count.desc">Rating Count Descending</option>
+					<option value="vote_count.asc">Rating Count Descending</option>
 				</select>
 				{this.state.results.map((result) => (
 					<div key={result.id + result.vote_count}>
