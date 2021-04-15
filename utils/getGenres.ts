@@ -20,7 +20,7 @@ export default function getGenres(genre: string): string {
 		{ id: 10752, name: "war" },
 		{ id: 37, name: "western" },
 	];
-	const genreList: string[] = genre.toLowerCase().split(" ");
+	const genreList: string[] = genre.toLowerCase().split(",");
 	let idList: string = "";
 
 	for (const g of genreList) {
