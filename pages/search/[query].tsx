@@ -1,4 +1,4 @@
-import { withRouter, NextRouter, Router } from "next/router";
+import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
