@@ -1,9 +1,10 @@
-import { withRouter, NextRouter } from "next/router";
+import { withRouter, NextRouter, Router } from "next/router";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import Options from "../../components/Options";
+import submitSearch from "../../utils/submitSearch";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -18,6 +19,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		this.state = {
 			pageNumber: 1,
 			totalPages: 500,
+			url: "",
 			results: props.results,
 			sortBy: "popularity.desc",
 		};
@@ -61,7 +63,12 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		);
 	};
 
-	submitForm = async (e) => {};
+	submitForm = async (e) => {
+		const result = await submitSearch(e);
+		this.props.router
+			.push(`/search/${result.apiUrl}`)
+			.then(this.props.router.reload);
+	};
 
 	async fetchResults() {
 		this.setState({ pageNumber: this.state.pageNumber + 1 });
