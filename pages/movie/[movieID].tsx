@@ -5,6 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import formatDate from "../../utils/formatDate";
 
+const formatter = new Intl.NumberFormat("en-US", {
+	style: "currency",
+	currency: "USD",
+});
 interface WithRouterProps {
 	router: NextRouter;
 }
@@ -65,8 +69,15 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 						<div>
 							<h3>{this.formatGenres()}</h3>
 						</div>
+						<h4>Rating: {this.state.movie.vote_average}/10</h4>
 						<h4>{this.state.movie.tagline}</h4>
 						<p>{this.state.movie.overview}</p>
+						<p>Runtime: {this.state.movie.runtime} minutes</p>
+						<p>
+							Budget: {formatter.format(this.state.movie.budget).slice(0, -3)}
+							<br />
+							Revenue: {formatter.format(this.state.movie.revenue).slice(0, -3)}
+						</p>
 					</div>
 				</div>
 
