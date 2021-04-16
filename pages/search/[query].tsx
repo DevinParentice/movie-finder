@@ -94,20 +94,28 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 					onChange={this.changeSort}
 					defaultValue={this.state.sortBy}
 				>
-					<option value="popularity.desc">Popularity Descending</option>
-					<option value="popularity.asc">Popularity Ascending</option>
-					<option value="primary_release_date.desc">
-						Release Date Descending
-					</option>
-					<option value="primary_release_date.asc">
-						Release Date Ascending
-					</option>
-					<option value="revenue.desc">Revenue Descending</option>
-					<option value="revenue.asc">Revenue Ascending</option>
-					<option value="vote_average.desc">Average Rating Descending</option>
-					<option value="vote_average.asc">Average Rating Ascending</option>
-					<option value="vote_count.desc">Rating Count Descending</option>
-					<option value="vote_count.asc">Rating Count Descending</option>
+					<optgroup label="Popularity">
+						<option value="popularity.desc">Popularity Descending</option>
+						<option value="popularity.asc">Popularity Ascending</option>
+					</optgroup>
+					<optgroup label="Release Date">
+						<option value="primary_release_date.desc">
+							Release Date Descending
+						</option>
+						<option value="primary_release_date.asc">
+							Release Date Ascending
+						</option>
+					</optgroup>
+					<optgroup label="Revenue">
+						<option value="revenue.desc">Revenue Descending</option>
+						<option value="revenue.asc">Revenue Ascending</option>
+					</optgroup>
+					<optgroup label="Ratings">
+						<option value="vote_average.desc">Average Rating Descending</option>
+						<option value="vote_average.asc">Average Rating Ascending</option>
+						<option value="vote_count.desc">Rating Count Descending</option>
+						<option value="vote_count.asc">Rating Count Descending</option>
+					</optgroup>
 				</select>
 				{this.state.results.map((result) => (
 					<div key={result.id + result.vote_count}>
