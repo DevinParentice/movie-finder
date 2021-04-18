@@ -7,4 +7,56 @@
 .content_wrapper {
 	min-height: 100vh;
 	margin-bottom: 2.5rem;
+
+	section {
+		display: flex;
+		border-top: 2px solid variables.$color-accent;
+		border-bottom: 2px solid variables.$color-accent;
+
+		.movie_result_poster {
+			display: flex;
+			align-items: center;
+			padding-top: 1rem;
+			padding-bottom: 0.75rem;
+
+			.movie_poster {
+				border-radius: 10px;
+				width: 110px;
+				height: auto;
+				margin-right: 1rem;
+				margin-left: 1rem;
+			}
+
+			.no_poster_container {
+				margin-right: 1rem;
+				margin-left: 1rem;
+			}
+		}
+
+		.movie_result_details {
+			display: flex;
+			align-items: center;
+			padding-top: 1rem;
+		}
+
+		h2 {
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+		}
+
+		a {
+			text-decoration: none;
+			color: #fff;
+		}
+
+		p {
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			color: #fff;
+		}
+	}
 }

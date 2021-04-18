@@ -7,6 +7,7 @@ import Options from "../../components/Options";
 import submitSearch from "../../utils/submitSearch";
 import styles from "../../styles/modules/Query.module.scss";
 import Footer from "../../components/Footer";
+import formatDate from "../../utils/formatDate";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -130,45 +131,46 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 						</optgroup>
 					</select>
 					{this.state.results.map((result) => (
-						<div key={result.id + result.vote_count}>
-							<div>
+						<section
+							key={result.id + result.vote_count}
+							className={styles.movie_result}
+						>
+							<div className={styles.movie_result_poster}>
 								<Link href={`/movie/${result.id}`}>
 									<a>
 										{result.poster_path ? (
 											<img
 												src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${result.poster_path}`}
 												alt={`${result.title} Poster`}
-												className="movie-poster"
+												className={styles.movie_poster}
 											/>
 										) : (
-											<Image
-												src="/NoPoster.png"
-												alt="No Poster Found"
-												width="220"
-												height="330"
-												className="movie-poster"
-											/>
+											<div className={styles.no_poster_container}>
+												<Image
+													src="/NoPoster.png"
+													alt="No Poster Found"
+													width="110"
+													height="165"
+													className={styles.movie_poster}
+												/>
+											</div>
 										)}
 									</a>
 								</Link>
 							</div>
-							<div>
-								<Link href={`/movie/${result.id}`}>
-									<a>
-										<h2>{result.title}</h2>
-									</a>
-								</Link>
+							<div className={styles.movie_result_details}>
+								<div>
+									<Link href={`/movie/${result.id}`}>
+										<a>
+											<h2>{result.title}</h2>
+										</a>
+									</Link>
+									{/* <p>{result.overview}</p> */}
+									<p>Released: {formatDate(result.release_date)}</p>
+									<p>Rating: {result.vote_average}/10</p>
+								</div>
 							</div>
-							<div>
-								<p>{result.overview}</p>
-							</div>
-							<div>
-								<p>Released: {result.release_date}</p>
-							</div>
-							<div>
-								<p>Rating: {result.vote_average}/10</p>
-							</div>
-						</div>
+						</section>
 					))}
 				</div>
 				<Footer />
