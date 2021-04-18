@@ -186,7 +186,9 @@ export default function Options() {
 							onChange={handleChange}
 							required={index === 0}
 						>
-							<option value="">Choose a parameter...</option>
+							<option value="" disabled={chosenOptions[select]}>
+								Choose a parameter...
+							</option>
 							{options
 								.filter(({ value }) => !isChosenByOther(value, select))
 								.map(({ name, value }, oIndex) => (
