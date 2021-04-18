@@ -2,6 +2,12 @@
 @use "../abstracts/mixins";
 
 @use "../layout/forms";
+@use "../layout/footer";
+
+.content_wrapper {
+	min-height: 100vh;
+	margin-bottom: 2rem;
+}
 
 .logo_container {
 	min-height: 25vh;

@@ -187,7 +187,7 @@ export default function Options() {
 							required={index === 0}
 						>
 							<option value="" disabled={chosenOptions[select]}>
-								Choose a parameter...
+								Choose an option...
 							</option>
 							{options
 								.filter(({ value }) => !isChosenByOther(value, select))
