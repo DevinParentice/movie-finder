@@ -4,6 +4,8 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import formatDate from "../../utils/formatDate";
+import styles from "../../styles/modules/Query.module.scss";
+import Footer from "../../components/Footer";
 
 const formatter = new Intl.NumberFormat("en-US", {
 	style: "currency",
@@ -37,94 +39,97 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 	render() {
 		return (
 			<div>
-				<div className="movie-details">
-					{this.state.movie.poster_path ? (
-						<img
-							src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
-							alt={`${this.state.movie.title} Poster`}
-							className="movie-poster-lg"
-						/>
-					) : (
-						<Image
-							src="/NoPoster.png"
-							alt="No Poster Found"
-							width="220"
-							height="330"
-							className="movie-poster-lg"
-						/>
-					)}
+				<div className={styles.content_wrapper}>
+					<div className="movie-details">
+						{this.state.movie.poster_path ? (
+							<img
+								src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
+								alt={`${this.state.movie.title} Poster`}
+								className="movie-poster-lg"
+							/>
+						) : (
+							<Image
+								src="/NoPoster.png"
+								alt="No Poster Found"
+								width="220"
+								height="330"
+								className="movie-poster-lg"
+							/>
+						)}
+						<div>
+							<h1>{this.state.movie.title}</h1>
+							<h2>Released {formatDate(this.state.movie.release_date)}</h2>
+							{this.state.people.crew &&
+								this.state.people.crew.map((castMember) => {
+									if (castMember.job === "Director") {
+										return (
+											<h2 key={castMember.credit_id}>
+												Directed by {castMember.name}
+											</h2>
+										);
+									}
+								})}
+							<div>
+								<h3>{this.formatGenres()}</h3>
+							</div>
+							<h4>Rating: {this.state.movie.vote_average}/10</h4>
+							<h4>{this.state.movie.tagline}</h4>
+							<p>{this.state.movie.overview}</p>
+							<p>Runtime: {this.state.movie.runtime} minutes</p>
+							<p>
+								Budget: {formatter.format(this.state.movie.budget).slice(0, -3)}
+								<br />
+								Revenue:{" "}
+								{formatter.format(this.state.movie.revenue).slice(0, -3)}
+							</p>
+						</div>
+					</div>
 					<div>
-						<h1>{this.state.movie.title}</h1>
-						<h2>Released {formatDate(this.state.movie.release_date)}</h2>
-						{this.state.people.crew &&
-							this.state.people.crew.map((castMember) => {
-								if (castMember.job === "Director") {
+						<ul className="content-selector">
+							<li
+								onClick={() => {
+									this.setState({ peopleDisplay: this.state.people.cast });
+								}}
+							>
+								Cast
+							</li>
+							<li
+								onClick={() => {
+									this.setState({ peopleDisplay: this.state.people.crew });
+								}}
+							>
+								Crew
+							</li>
+						</ul>
+					</div>
+					<div>
+						{this.state.peopleDisplay &&
+							this.state.peopleDisplay.map((person, index) => {
+								if (person.character) {
 									return (
-										<h2 key={castMember.credit_id}>
-											Directed by {castMember.name}
-										</h2>
+										<Link href={`/person/${person.id}`} key={index}>
+											<a className="person-link">
+												<p>
+													{person.name} - {person.character}
+												</p>
+											</a>
+										</Link>
+									);
+								} else {
+									return (
+										<Link href={`/person/${person.id}`} key={index}>
+											<a className="person-link">
+												<p>
+													{person.name} - {person.job}
+												</p>
+											</a>
+										</Link>
 									);
 								}
 							})}
-						<div>
-							<h3>{this.formatGenres()}</h3>
-						</div>
-						<h4>Rating: {this.state.movie.vote_average}/10</h4>
-						<h4>{this.state.movie.tagline}</h4>
-						<p>{this.state.movie.overview}</p>
-						<p>Runtime: {this.state.movie.runtime} minutes</p>
-						<p>
-							Budget: {formatter.format(this.state.movie.budget).slice(0, -3)}
-							<br />
-							Revenue: {formatter.format(this.state.movie.revenue).slice(0, -3)}
-						</p>
 					</div>
 				</div>
-
-				<div>
-					<ul className="content-selector">
-						<li
-							onClick={() => {
-								this.setState({ peopleDisplay: this.state.people.cast });
-							}}
-						>
-							Cast
-						</li>
-						<li
-							onClick={() => {
-								this.setState({ peopleDisplay: this.state.people.crew });
-							}}
-						>
-							Crew
-						</li>
-					</ul>
-				</div>
-				<div>
-					{this.state.peopleDisplay &&
-						this.state.peopleDisplay.map((person, index) => {
-							if (person.character) {
-								return (
-									<Link href={`/person/${person.id}`} key={index}>
-										<a className="person-link">
-											<p>
-												{person.name} - {person.character}
-											</p>
-										</a>
-									</Link>
-								);
-							} else {
-								return (
-									<Link href={`/person/${person.id}`} key={index}>
-										<a className="person-link">
-											<p>
-												{person.name} - {person.job}
-											</p>
-										</a>
-									</Link>
-								);
-							}
-						})}
-				</div>
+				<Footer />
 			</div>
 		);
 	}

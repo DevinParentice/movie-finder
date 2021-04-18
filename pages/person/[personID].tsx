@@ -4,6 +4,8 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import formatDate from "../../utils/formatDate";
+import styles from "../../styles/modules/Query.module.scss";
+import Footer from "../../components/Footer";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -24,71 +26,74 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 	render() {
 		return (
 			<div>
-				<div className="movie-details">
-					{this.state.person.profile_path ? (
-						<img
-							src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.person.profile_path}`}
-							alt={`${this.state.person.title} Poster`}
-							className="movie-poster-lg"
-						/>
-					) : (
-						<Image
-							src="/NoPoster.png"
-							alt="No Poster Found"
-							width="220"
-							height="330"
-							className="movie-poster-lg"
-						/>
-					)}
-					<div className="person-details">
-						<h1>{this.state.person.name}</h1>
-						<h2>Born {formatDate(this.state.person.birthday)}</h2>
-						<p>{this.state.person.biography}</p>
+				<div className={styles.content_wrapper}>
+					<div className="movie-details">
+						{this.state.person.profile_path ? (
+							<img
+								src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.person.profile_path}`}
+								alt={`${this.state.person.title} Poster`}
+								className="movie-poster-lg"
+							/>
+						) : (
+							<Image
+								src="/NoPoster.png"
+								alt="No Poster Found"
+								width="220"
+								height="330"
+								className="movie-poster-lg"
+							/>
+						)}
+						<div className="person-details">
+							<h1>{this.state.person.name}</h1>
+							<h2>Born {formatDate(this.state.person.birthday)}</h2>
+							<p>{this.state.person.biography}</p>
+						</div>
+					</div>
+					<div>
+						<ul className="content-selector">
+							<li
+								onClick={() => {
+									this.setState({ creditsDisplay: this.state.credits.cast });
+								}}
+							>
+								Acted In
+							</li>
+							<li
+								onClick={() => {
+									this.setState({ creditsDisplay: this.state.credits.crew });
+								}}
+							>
+								Worked On
+							</li>
+						</ul>
+					</div>
+					<div>
+						{this.state.creditsDisplay.map((role, index) => {
+							if (role.character) {
+								return (
+									<Link href={`/movie/${role.id}`} key={index}>
+										<a className="person-link">
+											<p>
+												{role.title} - {role.character}
+											</p>
+										</a>
+									</Link>
+								);
+							} else {
+								return (
+									<Link href={`/movie/${role.id}`} key={index}>
+										<a className="person-link">
+											<p>
+												{role.title} - {role.job}
+											</p>
+										</a>
+									</Link>
+								);
+							}
+						})}
 					</div>
 				</div>
-				<div>
-					<ul className="content-selector">
-						<li
-							onClick={() => {
-								this.setState({ creditsDisplay: this.state.credits.cast });
-							}}
-						>
-							Acted In
-						</li>
-						<li
-							onClick={() => {
-								this.setState({ creditsDisplay: this.state.credits.crew });
-							}}
-						>
-							Worked On
-						</li>
-					</ul>
-				</div>
-				<div>
-					{this.state.creditsDisplay.map((role, index) => {
-						if (role.character) {
-							return (
-								<Link href={`/movie/${role.id}`} key={index}>
-									<a className="person-link">
-										<p>
-											{role.title} - {role.character}
-										</p>
-									</a>
-								</Link>
-							);
-						} else {
-							return (
-								<Link href={`/movie/${role.id}`} key={index}>
-									<a className="person-link">
-										<p>
-											{role.title} - {role.job}
-										</p>
-									</a>
-								</Link>
-							);
-						}
-					})}
-				</div>
+				<Footer />
 			</div>
 		);
 	}

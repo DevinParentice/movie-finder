@@ -5,6 +5,8 @@ import Image from "next/image";
 import React from "react";
 import Options from "../../components/Options";
 import submitSearch from "../../utils/submitSearch";
+import styles from "../../styles/modules/Query.module.scss";
+import Footer from "../../components/Footer";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -89,82 +91,87 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 		return (
 			<div>
-				<form onSubmit={this.submitForm}>
-					<p>Find movies</p>
-					<Options />
-					<br />
-					<input type="submit" value="Search" />
-				</form>
-				<select
-					name="sort"
-					id="sort"
-					onChange={this.changeSort}
-					defaultValue={this.state.sortBy}
-				>
-					<optgroup label="Popularity">
-						<option value="popularity.desc">Popularity Descending</option>
-						<option value="popularity.asc">Popularity Ascending</option>
-					</optgroup>
-					<optgroup label="Release Date">
-						<option value="primary_release_date.desc">
-							Release Date Descending
-						</option>
-						<option value="primary_release_date.asc">
-							Release Date Ascending
-						</option>
-					</optgroup>
-					<optgroup label="Revenue">
-						<option value="revenue.desc">Revenue Descending</option>
-						<option value="revenue.asc">Revenue Ascending</option>
-					</optgroup>
-					<optgroup label="Ratings">
-						<option value="vote_average.desc">Average Rating Descending</option>
-						<option value="vote_average.asc">Average Rating Ascending</option>
-						<option value="vote_count.desc">Rating Count Descending</option>
-						<option value="vote_count.asc">Rating Count Descending</option>
-					</optgroup>
-				</select>
-				{this.state.results.map((result) => (
-					<div key={result.id + result.vote_count}>
-						<div>
-							<Link href={`/movie/${result.id}`}>
-								<a>
-									{result.poster_path ? (
-										<img
-											src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${result.poster_path}`}
-											alt={`${result.title} Poster`}
-											className="movie-poster"
-										/>
-									) : (
-										<Image
-											src="/NoPoster.png"
-											alt="No Poster Found"
-											width="220"
-											height="330"
-											className="movie-poster"
-										/>
-									)}
-								</a>
-							</Link>
+				<div className={styles.content_wrapper}>
+					<form onSubmit={this.submitForm}>
+						<p>Find movies</p>
+						<Options />
+						<br />
+						<input type="submit" value="Search" />
+					</form>
+					<select
+						name="sort"
+						id="sort"
+						onChange={this.changeSort}
+						defaultValue={this.state.sortBy}
+					>
+						<optgroup label="Popularity">
+							<option value="popularity.desc">Popularity Descending</option>
+							<option value="popularity.asc">Popularity Ascending</option>
+						</optgroup>
+						<optgroup label="Release Date">
+							<option value="primary_release_date.desc">
+								Release Date Descending
+							</option>
+							<option value="primary_release_date.asc">
+								Release Date Ascending
+							</option>
+						</optgroup>
+						<optgroup label="Revenue">
+							<option value="revenue.desc">Revenue Descending</option>
+							<option value="revenue.asc">Revenue Ascending</option>
+						</optgroup>
+						<optgroup label="Ratings">
+							<option value="vote_average.desc">
+								Average Rating Descending
+							</option>
+							<option value="vote_average.asc">Average Rating Ascending</option>
+							<option value="vote_count.desc">Rating Count Descending</option>
+							<option value="vote_count.asc">Rating Count Descending</option>
+						</optgroup>
+					</select>
+					{this.state.results.map((result) => (
+						<div key={result.id + result.vote_count}>
+							<div>
+								<Link href={`/movie/${result.id}`}>
+									<a>
+										{result.poster_path ? (
+											<img
+												src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${result.poster_path}`}
+												alt={`${result.title} Poster`}
+												className="movie-poster"
+											/>
+										) : (
+											<Image
+												src="/NoPoster.png"
+												alt="No Poster Found"
+												width="220"
+												height="330"
+												className="movie-poster"
+											/>
+										)}
+									</a>
+								</Link>
+							</div>
+							<div>
+								<Link href={`/movie/${result.id}`}>
+									<a>
+										<h2>{result.title}</h2>
+									</a>
+								</Link>
+							</div>
+							<div>
+								<p>{result.overview}</p>
+							</div>
+							<div>
+								<p>Released: {result.release_date}</p>
+							</div>
+							<div>
+								<p>Rating: {result.vote_average}/10</p>
+							</div>
 						</div>
-						<div>
-							<Link href={`/movie/${result.id}`}>
-								<a>
-									<h2>{result.title}</h2>
-								</a>
-							</Link>
-						</div>
-						<div>
-							<p>{result.overview}</p>
-						</div>
-						<div>
-							<p>Released: {result.release_date}</p>
-						</div>
-						<div>
-							<p>Rating: {result.vote_average}/10</p>
-						</div>
-					</div>
-				))}
+					))}
+				</div>
+				<Footer />
 			</div>
 		);
 	}
