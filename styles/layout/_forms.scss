@@ -17,11 +17,14 @@
 
 		select {
 			width: 100%;
+			border-radius: 5px 5px 0px 0px;
 		}
 
 		.form_input {
 			width: 100%;
 			margin-bottom: 1rem;
+			border-radius: 0px 0px 5px 5px;
+			border: none;
 		}
 
 		.submit_button {
@@ -30,7 +33,7 @@
 			background: variables.$color-accent;
 			color: white;
 			font-family: variables.$font-body;
-			font-size: 1rem;
+			font-size: 1.5rem;
 			white-space: nowrap;
 			text-decoration: none;
 			padding: 0.25rem 0.5rem;
