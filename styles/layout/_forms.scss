@@ -1,0 +1,41 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
+.form_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.form_text {
+		color: variables.$color-logo-accent;
+		font-family: variables.$font-body;
+	}
+
+	form {
+		width: 100%;
+		padding: 0 3rem;
+
+		select {
+			width: 100%;
+		}
+
+		.form_input {
+			width: 100%;
+			margin-bottom: 1rem;
+		}
+
+		.submit_button {
+			border: 0;
+			border-radius: 0.25rem;
+			background: variables.$color-accent;
+			color: white;
+			font-family: variables.$font-body;
+			font-size: 1rem;
+			white-space: nowrap;
+			text-decoration: none;
+			padding: 0.25rem 0.5rem;
+			margin: 0.25rem;
+			cursor: pointer;
+		}
+	}
+}

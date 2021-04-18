@@ -1,1 +1,17 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
 
+@use "../layout/forms";
+
+.logo_container {
+	min-height: 25vh;
+	text-align: center;
+	padding: 3rem 0;
+
+	.logo {
+		font-family: variables.$font-logo;
+		color: variables.$color-logo;
+		font-size: 4rem;
+		font-weight: lighter;
+	}
+}

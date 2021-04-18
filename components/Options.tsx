@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "../styles/modules/Home.module.scss";
 
 export default function Options() {
 	const [selects, setSelects] = useState(["select0"]);
@@ -57,8 +58,8 @@ export default function Options() {
 						name={`input${index}`}
 						required={index === 0}
 						placeholder="Enter full name"
+						className={styles.form_input}
 					/>
-					<p className="movies-text">,</p>
 				</>
 			);
 		} else if (inputs[index] === "starring-in") {
@@ -69,14 +70,18 @@ export default function Options() {
 						name={`input${index}`}
 						required={index === 0}
 						placeholder="Comma separated names"
+						className={styles.form_input}
 					/>
-					<p className="movies-text">,</p>
 				</>
 			);
 		} else if (inputs[index] === "genres") {
 			return (
 				<>
-					<select name={`input${index}`} placeholder="Select Genres">
+					<select
+						name={`input${index}`}
+						placeholder="Select Genres"
+						className={styles.form_input}
+					>
 						<option value="action">Action</option>
 						<option value="adventure">Adventue</option>
 						<option value="comedy">Comedy</option>
@@ -96,7 +101,6 @@ export default function Options() {
 						<option value="war">War</option>
 						<option value="western">Western</option>
 					</select>
-					<p className="movies-text">,</p>
 				</>
 			);
 		} else if (
@@ -111,8 +115,8 @@ export default function Options() {
 						name={`input${index}`}
 						required={index === 0}
 						placeholder="Enter year"
+						className={styles.form_input}
 					/>
-					<p className="movies-text">,</p>
 				</>
 			);
 		} else if (
@@ -126,8 +130,8 @@ export default function Options() {
 						name={`input${index}`}
 						required={index === 0}
 						placeholder="0.0 - 10.0"
+						className={styles.form_input}
 					/>
-					<p className="movies-text">,</p>
 				</>
 			);
 		} else if (
@@ -141,8 +145,8 @@ export default function Options() {
 						name={`input${index}`}
 						required={index === 0}
 						placeholder="Enter amount of ratings"
+						className={styles.form_input}
 					/>
-					<p className="movies-text">,</p>
 				</>
 			);
 		}
