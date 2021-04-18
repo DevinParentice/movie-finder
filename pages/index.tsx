@@ -16,6 +16,7 @@ export default function Home() {
 		<div className="App">
 			<Head>
 				<title>Movie Finder</title>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<h1>Find your movie:</h1>
 			<form onSubmit={submitForm} autoComplete="off">
