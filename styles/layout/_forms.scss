@@ -20,18 +20,20 @@
 		select {
 			width: 100%;
 			border: none;
+			color: white;
 			border-radius: 5px 5px 0px 0px;
 			padding: 0.6rem;
 			font-family: variables.$font-body;
 			font-size: 1.1rem;
 			-webkit-appearance: none;
-			background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
-				no-repeat right white;
+			background: url("../../public/arrow16.png") no-repeat right #283845;
 			background-position-x: 244px;
 		}
 
 		.form_input {
 			width: 100%;
+			background-color: variables.$color-accent;
+			color: white;
 			margin-bottom: 1rem;
 			border-radius: 0px 0px 5px 5px;
 			border: none;
