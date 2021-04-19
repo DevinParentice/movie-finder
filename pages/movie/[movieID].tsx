@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import formatDate from "../../utils/formatDate";
-import styles from "../../styles/modules/Query.module.scss";
+import styles from "../../styles/modules/Movie.module.scss";
 import Footer from "../../components/Footer";
 
 const formatter = new Intl.NumberFormat("en-US", {
@@ -40,31 +40,31 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 		return (
 			<div>
 				<div className={styles.content_wrapper}>
-					<div className="movie-details">
-						{this.state.movie.poster_path ? (
-							<img
-								src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
-								alt={`${this.state.movie.title} Poster`}
-								className="movie-poster-lg"
-							/>
-						) : (
-							<Image
-								src="/NoPoster.png"
-								alt="No Poster Found"
-								width="220"
-								height="330"
-								className="movie-poster-lg"
-							/>
-						)}
+					<div className={styles.movie_details}>
+						<div className={styles.poster_container}>
+							{this.state.movie.poster_path ? (
+								<img
+									src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
+									alt={`${this.state.movie.title} Poster`}
+								/>
+							) : (
+								<img src="/NoPoster.png" alt="No Poster Found" />
+							)}
+						</div>
 						<div>
-							<h1>{this.state.movie.title}</h1>
-							<h2>Released {formatDate(this.state.movie.release_date)}</h2>
+							<h1 className={styles.movie_title}>{this.state.movie.title}</h1>
+							<h2 className={styles.release_date}>
+								Released {formatDate(this.state.movie.release_date)}
+							</h2>
 							{this.state.people.crew &&
 								this.state.people.crew.map((castMember) => {
 									if (castMember.job === "Director") {
 										return (
-											<h2 key={castMember.credit_id}>
-												Directed by {castMember.name}
+											<h2
+												key={castMember.credit_id}
+												className={styles.directed_by}
+											>
+												Dir. by {castMember.name}
 											</h2>
 										);
 									}

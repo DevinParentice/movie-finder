@@ -150,11 +150,9 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 												/>
 											) : (
 												<div className={styles.no_poster_container}>
-													<Image
+													<img
 														src="/NoPoster.png"
 														alt="No Poster Found"
-														width="110"
-														height="165"
 														className={styles.movie_poster}
 													/>
 												</div>

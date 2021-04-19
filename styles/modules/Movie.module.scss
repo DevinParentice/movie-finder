@@ -6,4 +6,62 @@
 .content_wrapper {
 	min-height: 100vh;
 	margin-bottom: 2.5rem;
+
+	p,
+	a,
+	h1,
+	h2,
+	h3,
+	h4,
+	li {
+		color: white;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	.movie_details {
+		.poster_container {
+			display: flex;
+			align-items: center;
+			padding-top: 1rem;
+			padding-bottom: 0.75rem;
+			background-image: linear-gradient(
+					to bottom,
+					transparent,
+					variables.$color-main
+				),
+				url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wzJRB4MKi3yK138bJyuL9nx47y6.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;
+			img {
+				border-radius: 10px;
+				width: 86px;
+				height: auto;
+				margin-right: 1rem;
+				margin-left: 1rem;
+				border: 1px solid #fff;
+			}
+		}
+
+		.movie_title {
+			font-size: 4rem;
+			text-align: center;
+			font-family: variables.$font-logo;
+			text-shadow: 1px 1px 5px black;
+		}
+
+		.release_date,
+		.directed_by {
+			text-align: center;
+			color: rgb(200, 200, 200);
+			font-size: 1.5rem;
+			text-shadow: 1px 1px 1px black;
+		}
+
+		.directed_by {
+			margin-bottom: 2rem;
+		}
+	}
 }
