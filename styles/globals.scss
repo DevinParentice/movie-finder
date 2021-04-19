@@ -24,11 +24,3 @@ html {
 		white-space: pre-line;
 	}
 }
-
-.content-selector li {
-	display: inline;
-	margin: 10px;
-	&:hover {
-		cursor: pointer;
-	}
-}

@@ -25,6 +25,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 			people: props.people,
 			peopleDisplay: props.peopleDisplay,
 			loading: true,
+			active: "Cast",
 		};
 	}
 	formatGenres() {
@@ -69,34 +70,54 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 										);
 									}
 								})}
-							<div>
-								<h3>{this.formatGenres()}</h3>
+							<div className={styles.information_collection}>
+								<div className={styles.information_details}>
+									<h3>{this.formatGenres()}</h3>
+									<h4>
+										Rating: {this.state.movie.vote_average}{" "}
+										<img
+											src="/star16.png"
+											alt="Star icon"
+											className={styles.gold_star}
+										/>
+									</h4>
+								</div>
+								<h4>{this.state.movie.tagline}</h4>
+								<p>{this.state.movie.overview}</p>
 							</div>
-							<h4>Rating: {this.state.movie.vote_average}/10</h4>
-							<h4>{this.state.movie.tagline}</h4>
-							<p>{this.state.movie.overview}</p>
-							<p>Runtime: {this.state.movie.runtime} minutes</p>
-							<p>
-								Budget: {formatter.format(this.state.movie.budget).slice(0, -3)}
-								<br />
-								Revenue:{" "}
-								{formatter.format(this.state.movie.revenue).slice(0, -3)}
-							</p>
+							<div className={styles.details_collection}>
+								<p>Runtime: {this.state.movie.runtime} minutes</p>
+								<p>
+									Budget:{" "}
+									{formatter.format(this.state.movie.budget).slice(0, -3)}
+									<br />
+									Revenue:{" "}
+									{formatter.format(this.state.movie.revenue).slice(0, -3)}
+								</p>
+							</div>
 						</div>
 					</div>
-					<div>
-						<ul className="content-selector">
+					<div className={styles.people_container}>
+						<ul className={styles.content_selector}>
 							<li
 								onClick={() => {
-									this.setState({ peopleDisplay: this.state.people.cast });
+									this.setState({
+										peopleDisplay: this.state.people.cast,
+										active: "Cast",
+									});
 								}}
+								className={this.state.active === "Cast" ? styles.active : ""}
 							>
 								Cast
 							</li>
 							<li
 								onClick={() => {
-									this.setState({ peopleDisplay: this.state.people.crew });
+									this.setState({
+										peopleDisplay: this.state.people.crew,
+										active: "Crew",
+									});
 								}}
+								className={this.state.active === "Crew" ? styles.active : ""}
 							>
 								Crew
 							</li>

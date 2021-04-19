@@ -63,5 +63,45 @@
 		.directed_by {
 			margin-bottom: 2rem;
 		}
+
+		.information_collection {
+			padding-left: 1em;
+			padding-right: 1em;
+			padding-bottom: 1em;
+
+			.information_details {
+				padding-bottom: 1em;
+			}
+		}
+
+		.details_collection {
+			padding-left: 1em;
+			padding-right: 1em;
+			padding-bottom: 2em;
+		}
+	}
+
+	.people_container {
+		.content_selector {
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			border-bottom: 2px solid variables.$color-accent;
+			margin-bottom: 2em;
+
+			li {
+				display: inline;
+				font-size: 1.5rem;
+				margin: 10px;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+			.active {
+				color: variables.$color-logo;
+				text-decoration: underline;
+			}
+		}
 	}
 }
