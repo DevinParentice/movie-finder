@@ -1,8 +1,6 @@
 import React from "react";
 import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import formatDate from "../../utils/formatDate";
 import styles from "../../styles/modules/Movie.module.scss";
 import Footer from "../../components/Footer";
@@ -104,6 +102,14 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 											alt="Star icon"
 											className={styles.gold_star}
 										/>
+									</h4>
+									<h4 className={styles.view_trailer_button}>
+										<a
+											href={`https://www.youtube.com/watch?v=${this.state.movie.videos.results[0].key}`}
+											target="_blank"
+										>
+											View Trailer
+										</a>
 									</h4>
 								</div>
 								<h4>{this.state.movie.tagline}</h4>
@@ -209,7 +215,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-	const movieUrl = `https://api.themoviedb.org/3/movie/${query.movieID}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
+	const movieUrl = `https://api.themoviedb.org/3/movie/${query.movieID}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&append_to_response=videos`;
 	const res1 = await fetch(movieUrl);
 	const movie = await res1.json();
 
