@@ -42,7 +42,17 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 			<div>
 				<div className={styles.content_wrapper}>
 					<div className={styles.movie_details}>
-						<div className={styles.poster_container}>
+						<div
+							className={styles.poster_container}
+							style={{
+								backgroundImage: `linear-gradient(
+									to bottom,
+									transparent,
+									#202c39
+								),
+								url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${this.state.movie.backdrop_path}")`,
+							}}
+						>
 							{this.state.movie.poster_path ? (
 								<img
 									src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
@@ -97,7 +107,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 							</div>
 						</div>
 					</div>
-					<div className={styles.people_container}>
+					<div className={styles.people_selector}>
 						<ul className={styles.content_selector}>
 							<li
 								onClick={() => {
@@ -123,28 +133,56 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 							</li>
 						</ul>
 					</div>
-					<div>
+					<div className={styles.people_container}>
 						{this.state.peopleDisplay &&
 							this.state.peopleDisplay.map((person, index) => {
 								if (person.character) {
 									return (
-										<Link href={`/person/${person.id}`} key={index}>
-											<a className="person-link">
-												<p>
-													{person.name} - {person.character}
-												</p>
+										<div className={styles.card} key={index}>
+											<a href={`/person/${person.id}`} className="person-link">
+												{person.profile_path ? (
+													<div className={styles.no_poster_container}>
+														<img
+															src={`https://www.themoviedb.org/t/p/w276_and_h350_face${person.profile_path}`}
+															alt={`Picture of ${person.name}`}
+														/>
+													</div>
+												) : (
+													<div className={styles.no_poster_container}>
+														<img src="/NoPerson.png" alt="No Picture Found" />
+													</div>
+												)}
+												<div className={styles.name_container}>
+													<p className={styles.card_name}>{person.name}</p>
+													<p className={styles.card_character}>
+														{person.character}
+													</p>
+												</div>
 											</a>
-										</Link>
+										</div>
 									);
 								} else {
 									return (
-										<Link href={`/person/${person.id}`} key={index}>
-											<a className="person-link">
-												<p>
-													{person.name} - {person.job}
-												</p>
+										<div className={styles.card} key={index}>
+											<a href={`/person/${person.id}`} className="person-link">
+												{person.profile_path ? (
+													<div className={styles.no_poster_container}>
+														<img
+															src={`https://www.themoviedb.org/t/p/w276_and_h350_face${person.profile_path}`}
+															alt={`Picture of ${person.name}`}
+														/>
+													</div>
+												) : (
+													<div className={styles.no_poster_container}>
+														<img src="/NoPerson.png" alt="No Poster Found" />
+													</div>
+												)}
+												<div className={styles.name_container}>
+													<p className={styles.card_name}>{person.name}</p>
+													<p className={styles.card_character}>{person.job}</p>
+												</div>
 											</a>
-										</Link>
+										</div>
 									);
 								}
 							})}
