@@ -42,26 +42,40 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 			<div>
 				<div className={styles.content_wrapper}>
 					<div className={styles.movie_details}>
-						<div
-							className={styles.poster_container}
-							style={{
-								backgroundImage: `linear-gradient(
+						{this.state.movie.backdrop_path ? (
+							<div
+								className={styles.poster_container}
+								style={{
+									backgroundImage: `linear-gradient(
 									to bottom,
 									transparent,
 									#202c39
 								),
 								url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${this.state.movie.backdrop_path}")`,
-							}}
-						>
-							{this.state.movie.poster_path ? (
-								<img
-									src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
-									alt={`${this.state.movie.title} Poster`}
-								/>
-							) : (
-								<img src="/NoPoster.png" alt="No Poster Found" />
-							)}
-						</div>
+								}}
+							>
+								{this.state.movie.poster_path ? (
+									<img
+										src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
+										alt={`${this.state.movie.title} Poster`}
+									/>
+								) : (
+									<img src="/NoPoster.png" alt="No Poster Found" />
+								)}
+							</div>
+						) : (
+							<div className={styles.poster_container}>
+								{this.state.movie.poster_path ? (
+									<img
+										src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
+										alt={`${this.state.movie.title} Poster`}
+									/>
+								) : (
+									<img src="/NoPoster.png" alt="No Poster Found" />
+								)}
+							</div>
+						)}
+
 						<div>
 							<h1 className={styles.movie_title}>{this.state.movie.title}</h1>
 							<h2 className={styles.release_date}>
