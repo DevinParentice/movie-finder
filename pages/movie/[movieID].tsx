@@ -103,14 +103,18 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 											className={styles.gold_star}
 										/>
 									</h4>
-									<h4 className={styles.view_trailer_button}>
-										<a
-											href={`https://www.youtube.com/watch?v=${this.state.movie.videos.results[0].key}`}
-											target="_blank"
-										>
-											View Trailer
-										</a>
-									</h4>
+									{this.state.movie.videos.results[0] ? (
+										<h4 className={styles.view_trailer_button}>
+											<a
+												href={`https://www.youtube.com/watch?v=${this.state.movie.videos.results[0].key}`}
+												target="_blank"
+											>
+												View Trailer
+											</a>
+										</h4>
+									) : (
+										<div></div>
+									)}
 								</div>
 								<h4>{this.state.movie.tagline}</h4>
 								<p>{this.state.movie.overview}</p>
