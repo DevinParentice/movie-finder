@@ -87,7 +87,10 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 												key={castMember.credit_id}
 												className={styles.directed_by}
 											>
-												Dir. by {castMember.name}
+												Dir. by{" "}
+												<a href={`/person/${castMember.id}`}>
+													{castMember.name}
+												</a>
 											</h2>
 										);
 									}
@@ -116,8 +119,10 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 										<div></div>
 									)}
 								</div>
-								<h4>{this.state.movie.tagline}</h4>
-								<p>{this.state.movie.overview}</p>
+								<div className={styles.overview_container}>
+									<h4 className={styles.tagline}>{this.state.movie.tagline}</h4>
+									<p>{this.state.movie.overview}</p>
+								</div>
 							</div>
 							<div className={styles.details_collection}>
 								<p>Runtime: {this.state.movie.runtime} minutes</p>

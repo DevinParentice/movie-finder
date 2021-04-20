@@ -12,7 +12,9 @@ export default async function getPeople(names: string) {
 
 		const result = await res.json();
 		if (typeof result.results[0] !== "undefined") {
-			idList += `${result.results[0].id}, `;
+			for (let r of result.results) {
+				idList += `${r.id}| `;
+			}
 		}
 	}
 
