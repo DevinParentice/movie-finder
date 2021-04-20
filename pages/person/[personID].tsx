@@ -2,9 +2,8 @@ import React from "react";
 import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import formatDate from "../../utils/formatDate";
-import styles from "../../styles/modules/Query.module.scss";
+import styles from "../../styles/modules/Person.module.scss";
 import Footer from "../../components/Footer";
 
 interface WithRouterProps {
@@ -20,6 +19,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 			person: props.person,
 			credits: props.credits,
 			creditsDisplay: props.creditsDisplay,
+			active: props.active,
 		};
 	}
 
@@ -27,67 +27,125 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 		return (
 			<div>
 				<div className={styles.content_wrapper}>
-					<div className="movie-details">
-						{this.state.person.profile_path ? (
-							<img
-								src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.person.profile_path}`}
-								alt={`${this.state.person.title} Poster`}
-								className="movie-poster-lg"
-							/>
-						) : (
-							<Image
-								src="/NoPoster.png"
-								alt="No Poster Found"
-								width="220"
-								height="330"
-								className="movie-poster-lg"
-							/>
-						)}
-						<div className="person-details">
-							<h1>{this.state.person.name}</h1>
-							<h2>Born {formatDate(this.state.person.birthday)}</h2>
+					<div className={styles.movie_details}>
+						<div className={styles.poster_container}>
+							{this.state.person.profile_path ? (
+								<img
+									src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.person.profile_path}`}
+									alt={`Picture of ${this.state.person.title}`}
+									className="movie-poster-lg"
+								/>
+							) : (
+								<img
+									src="/NoPerson.png"
+									alt={`No Picture of ${this.state.person.title}`}
+									className="movie-poster-lg"
+								/>
+							)}
+							<div className={styles.name_container}>
+								<h1>{this.state.person.name}</h1>
+								<h2>Born {formatDate(this.state.person.birthday)}</h2>
+							</div>
+						</div>
+						<div className={styles.person_overview}>
 							<p>{this.state.person.biography}</p>
 						</div>
 					</div>
-					<div>
-						<ul className="content-selector">
+					<div className={styles.people_selector}>
+						<ul className={styles.content_selector}>
 							<li
 								onClick={() => {
-									this.setState({ creditsDisplay: this.state.credits.cast });
+									this.setState({
+										creditsDisplay: this.state.credits.cast,
+										active: "Cast",
+									});
 								}}
+								className={this.state.active === "Cast" ? styles.active : ""}
 							>
 								Acted In
 							</li>
 							<li
 								onClick={() => {
-									this.setState({ creditsDisplay: this.state.credits.crew });
+									this.setState({
+										creditsDisplay: this.state.credits.crew,
+										active: "Crew",
+									});
 								}}
+								className={this.state.active === "Crew" ? styles.active : ""}
 							>
 								Worked On
 							</li>
 						</ul>
 					</div>
-					<div>
+					<div className={styles.card_container}>
 						{this.state.creditsDisplay.map((role, index) => {
-							if (role.character) {
+							if (role.hasOwnProperty("character")) {
 								return (
-									<Link href={`/movie/${role.id}`} key={index}>
-										<a className="person-link">
-											<p>
-												{role.title} - {role.character}
-											</p>
+									<div className={styles.card} key={index}>
+										<a href={`/movie/${role.id}`} className="person-link">
+											{role.poster_path ? (
+												<div className={styles.no_poster_container}>
+													<img
+														src={`https://www.themoviedb.org/t/p/w150_and_h225_bestv2${role.poster_path}`}
+														alt={`Poster of ${role.name}`}
+													/>
+												</div>
+											) : (
+												<div className={styles.no_poster_container}>
+													<img src="/NoPoster.png" alt="No Poster Found" />
+												</div>
+											)}
+											{role.character ? (
+												<div className={styles.name_container}>
+													<p className={styles.card_name}>
+														{role.original_title}
+													</p>
+
+													<p className={styles.card_character}>
+														{role.character}
+													</p>
+												</div>
+											) : (
+												<div className={styles.name_container}>
+													<p className={styles.card_name}>
+														{role.original_title}
+													</p>
+
+													<p className={styles.card_character}>
+														Role not found
+													</p>
+												</div>
+											)}
 										</a>
-									</Link>
+									</div>
 								);
 							} else {
+								{
+									console.log("wooo");
+								}
 								return (
-									<Link href={`/movie/${role.id}`} key={index}>
-										<a className="person-link">
-											<p>
-												{role.title} - {role.job}
-											</p>
+									<div className={styles.card} key={index}>
+										<a href={`/movie/${role.id}`} className="person-link">
+											{role.poster_path ? (
+												<div className={styles.no_poster_container}>
+													<img
+														src={`https://www.themoviedb.org/t/p/w150_and_h225_bestv2${role.poster_path}`}
+														alt={`Poster of ${role.name}`}
+													/>
+												</div>
+											) : (
+												<div className={styles.no_poster_container}>
+													<img src="/NoPoster.png" alt="No Poster Found" />
+												</div>
+											)}
+											<div className={styles.name_container}>
+												<p className={styles.card_name}>
+													{role.original_title}
+												</p>
+												<p className={styles.card_character}>{role.job}</p>
+											</div>
 										</a>
-									</Link>
+									</div>
 								);
 							}
 						})}
@@ -108,17 +166,20 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 	const res2 = await fetch(url);
 	const credits = await res2.json();
 	let creditsDisplay = [];
+	let active = "";
 	if (credits.cast.length >= credits.crew.length) {
 		creditsDisplay = credits.cast;
+		active = "Cast";
 	} else {
 		creditsDisplay = credits.crew;
+		active = "Crew";
 	}
-
 	return {
 		props: {
 			person,
 			credits,
 			creditsDisplay,
+			active,
 		},
 	};
 };

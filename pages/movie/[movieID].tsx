@@ -162,7 +162,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 							</li>
 						</ul>
 					</div>
-					<div className={styles.people_container}>
+					<div className={styles.card_container}>
 						{this.state.peopleDisplay &&
 							this.state.peopleDisplay.map((person, index) => {
 								if (person.character) {
