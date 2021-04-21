@@ -5,6 +5,7 @@ import Options from "../components/Options";
 import Footer from "../components/Footer";
 import submitSearch from "../utils/submitSearch";
 import styles from "../styles/modules/Home.module.scss";
+import Header from "../components/Header";
 
 export default function Home() {
 	const router = useRouter();
@@ -21,14 +22,7 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<div className={styles.content_wrapper}>
-				<header className={styles.logo_container}>
-					<img
-						className={styles.logo_image}
-						src="/logo.svg"
-						alt="Movie Magic logo"
-					/>
-					<h1 className={styles.logo}>Movie Magic</h1>
-				</header>
+				<Header />
 				<section className={styles.form_container}>
 					<form onSubmit={submitForm} autoComplete="off">
 						<p className={styles.form_text}>Find me movies...</p>

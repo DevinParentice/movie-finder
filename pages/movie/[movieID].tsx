@@ -54,14 +54,6 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 								url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${this.state.movie.backdrop_path}")`,
 								}}
 							>
-								{this.state.movie.poster_path ? (
-									<img
-										src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
-										alt={`${this.state.movie.title} Poster`}
-									/>
-								) : (
-									<img src="/NoPoster.png" alt="No Poster Found" />
-								)}
 								<div className={styles.mobile_header}>
 									<a href="/">
 										<img
@@ -73,16 +65,17 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 								</div>
 							</div>
 						) : (
-							<div className={styles.poster_container}>
-								{this.state.movie.poster_path ? (
-									<img
-										src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
-										alt={`${this.state.movie.title} Poster`}
-									/>
-								) : (
-									<img src="/NoPoster.png" alt="No Poster Found" />
-								)}
-							</div>
+							<div
+								className={styles.poster_container}
+								style={{
+									backgroundImage: `linear-gradient(
+								to bottom,
+								transparent,
+								#202c39
+							),
+							url("/NoBackdrop.png")`,
+								}}
+							></div>
 						)}
 
 						<div>
@@ -108,26 +101,37 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 								})}
 							<div className={styles.information_collection}>
 								<div className={styles.information_details}>
-									<h3>{this.formatGenres()}</h3>
-									<h4>
-										Rating: {this.state.movie.vote_average}{" "}
-										<img
-											src="/star16.png"
-											alt="Star icon"
-											className={styles.gold_star}
-										/>
-									</h4>
-									{this.state.movie.videos.results[0] ? (
-										<h4 className={styles.view_trailer_button}>
-											<a
-												href={`https://www.youtube.com/watch?v=${this.state.movie.videos.results[0].key}`}
-												target="_blank"
-											>
-												View Trailer
-											</a>
+									<div>
+										<h3>{this.formatGenres()}</h3>
+										<h4>
+											Rating: {this.state.movie.vote_average}{" "}
+											<img
+												src="/star16.png"
+												alt="Star icon"
+												className={styles.gold_star}
+											/>
 										</h4>
+										{this.state.movie.videos.results[0] ? (
+											<h4 className={styles.view_trailer_button}>
+												<a
+													href={`https://www.youtube.com/watch?v=${this.state.movie.videos.results[0].key}`}
+													target="_blank"
+												>
+													View Trailer
+												</a>
+											</h4>
+										) : (
+											<div></div>
+										)}
+									</div>
+									{this.state.movie.poster_path ? (
+										<img
+											src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
+											alt={`${this.state.movie.title} Poster`}
+											className={styles.poster_test}
+										/>
 									) : (
-										<div></div>
+										<img src="/NoPoster.png" alt="No Poster Found" />
 									)}
 								</div>
 								<div className={styles.overview_container}>

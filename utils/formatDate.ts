@@ -1,5 +1,5 @@
 export default function formatDate(date: string): string {
-	if (date !== "") {
+	if (date) {
 		let finalDate = "";
 		date = date.replace(/-/g, "/");
 		const newDate = new Date(date);
