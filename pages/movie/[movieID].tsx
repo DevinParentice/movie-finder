@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import formatDate from "../../utils/formatDate";
 import styles from "../../styles/modules/Movie.module.scss";
 import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 
 const formatter = new Intl.NumberFormat("en-US", {
 	style: "currency",
@@ -39,6 +40,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 		return (
 			<div>
 				<div className={styles.content_wrapper}>
+					{/* <Header /> */}
 					<div className={styles.movie_details}>
 						{this.state.movie.backdrop_path ? (
 							<div
@@ -60,6 +62,15 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 								) : (
 									<img src="/NoPoster.png" alt="No Poster Found" />
 								)}
+								<div className={styles.mobile_header}>
+									<a href="/">
+										<img
+											className={styles.home_button}
+											src="/home64.png"
+											alt="Home button"
+										/>
+									</a>
+								</div>
 							</div>
 						) : (
 							<div className={styles.poster_container}>

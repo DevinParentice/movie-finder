@@ -3,6 +3,7 @@
 
 @use "../layout/forms";
 @use "../layout/footer";
+@use "../layout/header";
 
 .content_wrapper {
 	min-height: 100vh;
@@ -12,6 +13,14 @@
 	min-height: 25vh;
 	text-align: center;
 	padding: 3rem 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.logo_image {
+		width: 180px;
+	}
 
 	.logo {
 		font-family: variables.$font-logo;

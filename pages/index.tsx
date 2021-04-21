@@ -22,6 +22,11 @@ export default function Home() {
 			</Head>
 			<div className={styles.content_wrapper}>
 				<header className={styles.logo_container}>
+					<img
+						className={styles.logo_image}
+						src="/logo.svg"
+						alt="Movie Magic logo"
+					/>
 					<h1 className={styles.logo}>Movie Magic</h1>
 				</header>
 				<section className={styles.form_container}>

@@ -7,6 +7,7 @@ import submitSearch from "../../utils/submitSearch";
 import styles from "../../styles/modules/Query.module.scss";
 import Footer from "../../components/Footer";
 import formatDate from "../../utils/formatDate";
+import Header from "../../components/Header";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -92,11 +93,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		return (
 			<div>
 				<div className={styles.content_wrapper}>
-					<header className={styles.logo_container}>
-						<a href="/">
-							<h1 className={styles.logo}>Movie Magic</h1>
-						</a>
-					</header>
+					<Header />
 					<div className={styles.select_container}>
 						<select
 							name="sort"

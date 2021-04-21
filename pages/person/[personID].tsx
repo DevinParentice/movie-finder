@@ -1,10 +1,10 @@
 import React from "react";
 import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
-import Link from "next/link";
 import formatDate from "../../utils/formatDate";
 import styles from "../../styles/modules/Person.module.scss";
 import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -27,6 +27,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 		return (
 			<div>
 				<div className={styles.content_wrapper}>
+					<Header />
 					<div className={styles.movie_details}>
 						<div className={styles.poster_container}>
 							{this.state.person.profile_path ? (
