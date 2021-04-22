@@ -121,9 +121,6 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 									</div>
 								);
 							} else {
-								{
-									console.log("wooo");
-								}
 								return (
 									<div className={styles.card} key={index}>
 										<a href={`/movie/${role.id}`} className="person-link">

@@ -19,7 +19,8 @@
 	align-items: center;
 
 	.logo_image {
-		width: 180px;
+		width: 200px;
+		height: 200px;
 	}
 
 	.logo {
@@ -27,5 +28,6 @@
 		color: variables.$color-logo;
 		font-size: 4rem;
 		font-weight: lighter;
+		margin-top: -50px;
 	}
 }

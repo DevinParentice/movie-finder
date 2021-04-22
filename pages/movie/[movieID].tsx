@@ -49,7 +49,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 									backgroundImage: `linear-gradient(
 									to bottom,
 									transparent,
-									#202c39
+									#14181c
 								),
 								url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${this.state.movie.backdrop_path}")`,
 								}}
@@ -58,7 +58,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 									<a href="/">
 										<img
 											className={styles.home_button}
-											src="/home64.png"
+											src="/home256.png"
 											alt="Home button"
 										/>
 									</a>
@@ -71,7 +71,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 									backgroundImage: `linear-gradient(
 								to bottom,
 								transparent,
-								#202c39
+								#14181c
 							),
 							url("/NoBackdrop.png")`,
 								}}
@@ -128,7 +128,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 										<img
 											src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
 											alt={`${this.state.movie.title} Poster`}
-											className={styles.poster_test}
+											className={styles.poster}
 										/>
 									) : (
 										<img src="/NoPoster.png" alt="No Poster Found" />

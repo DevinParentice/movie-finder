@@ -6,7 +6,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 0.5em 0;
 
 	.image_left,
 	.image_right {
@@ -25,7 +24,9 @@
 	}
 
 	.header_image {
-		height: 30px;
+		height: 70px;
+		margin-top: -15px;
+		margin-bottom: -15px;
 		width: auto;
 	}
 
