@@ -106,7 +106,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 										<h4>
 											Rating: {this.state.movie.vote_average}{" "}
 											<img
-												src="/star16.png"
+												src="/star256.png"
 												alt="Star icon"
 												className={styles.gold_star}
 											/>

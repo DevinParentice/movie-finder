@@ -20,11 +20,23 @@
 			.card_name {
 				font-weight: bolder;
 				text-overflow: ellipsis;
+				overflow: hidden;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+
+				@include mixins.tablet() {
+					font-size: 1.25rem;
+				}
 			}
 
 			.card_character {
 				padding-bottom: 5px;
 				text-overflow: ellipsis;
+
+				@include mixins.tablet() {
+					font-size: 1.25rem;
+				}
 			}
 		}
 		p {
@@ -40,6 +52,14 @@
 			border: 0;
 			border-radius: 8px 8px 0 0;
 		}
+
+		@include mixins.tablet() {
+			width: 200px;
+		}
+	}
+
+	@include mixins.tablet() {
+		margin-bottom: 4em;
 	}
 }
 
@@ -58,11 +78,15 @@
 			&:hover {
 				cursor: pointer;
 			}
+
+			@include mixins.tablet() {
+				font-size: 2rem;
+			}
 		}
 
 		.active {
 			color: variables.$color-logo;
-			text-decoration: underline;
+			border-bottom: 2px solid #fff;
 		}
 	}
 }

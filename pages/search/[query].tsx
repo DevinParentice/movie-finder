@@ -169,7 +169,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 										<p>
 											Rating: {result.vote_average}{" "}
 											<img
-												src="/star16.png"
+												src="/star256.png"
 												alt="Star icon"
 												className={styles.gold_star}
 											/>

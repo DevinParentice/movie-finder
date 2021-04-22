@@ -76,4 +76,8 @@
 			}
 		}
 	}
+
+	@include mixins.tablet() {
+		margin-bottom: 4em;
+	}
 }

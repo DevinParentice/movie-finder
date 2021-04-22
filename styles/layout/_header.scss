@@ -5,32 +5,23 @@
 	background-color: variables.$color-accent;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 
-	.image_left,
-	.image_right {
+	.image_left {
 		font-family: variables.$font-logo;
 		color: variables.$color-logo;
 		font-size: 2rem;
 		font-weight: lighter;
+		overflow: hidden;
 
 		@include mixins.tablet() {
 			font-size: 3.5rem;
 		}
 	}
 
-	.image_left {
-		margin-right: 0.5em;
-	}
-
-	.image_right {
-		margin-left: 0.5em;
-	}
-
 	.header_image {
 		height: 70px;
 		margin-top: -15px;
-		margin-bottom: -15px;
+		margin-bottom: -30px;
 		width: auto;
 
 		@include mixins.tablet() {

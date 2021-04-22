@@ -25,13 +25,35 @@
 	.movie_details {
 		.poster_container {
 			display: flex;
+			flex-wrap: wrap;
 			align-items: center;
 			padding-top: 1rem;
 			padding-bottom: 0.75rem;
 			width: 100%;
 
 			.name_container {
-				margin-right: 1em;
+				@include mixins.tablet() {
+					text-align: center;
+					margin-left: 1rem;
+					margin-right: 1rem;
+				}
+			}
+
+			.top_container {
+				display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				padding-bottom: 1em;
+
+				h1 {
+					@include mixins.tablet() {
+						margin-top: 1em;
+					}
+				}
+
+				@include mixins.tablet() {
+					flex-wrap: wrap;
+				}
 			}
 
 			img {
@@ -41,6 +63,14 @@
 				margin-right: 1rem;
 				margin-left: 1rem;
 				border: 1px solid #fff;
+
+				@include mixins.tablet() {
+					width: 250px;
+				}
+			}
+
+			@include mixins.tablet() {
+				flex-wrap: nowrap;
 			}
 		}
 	}
@@ -54,6 +84,10 @@
 		margin-bottom: 1em;
 		p {
 			white-space: pre-line;
+		}
+
+		@include mixins.tablet() {
+			font-size: 1.2rem;
 		}
 	}
 }

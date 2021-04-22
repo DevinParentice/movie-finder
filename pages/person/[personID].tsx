@@ -30,26 +30,32 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 					<Header />
 					<div className={styles.movie_details}>
 						<div className={styles.poster_container}>
-							{this.state.person.profile_path ? (
-								<img
-									src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.person.profile_path}`}
-									alt={`Picture of ${this.state.person.title}`}
-									className="movie-poster-lg"
-								/>
-							) : (
-								<img
-									src="/NoPerson.png"
-									alt={`No Picture of ${this.state.person.title}`}
-									className="movie-poster-lg"
-								/>
-							)}
-							<div className={styles.name_container}>
-								<h1>{this.state.person.name}</h1>
-								<h2>Born {formatDate(this.state.person.birthday)}</h2>
+							<div className={styles.top_container}>
+								{this.state.person.profile_path ? (
+									<img
+										src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.person.profile_path}`}
+										alt={`Picture of ${this.state.person.title}`}
+										className="movie-poster-lg"
+									/>
+								) : (
+									<img
+										src="/NoPerson.png"
+										alt={`No Picture of ${this.state.person.title}`}
+										className="movie-poster-lg"
+									/>
+								)}
+								<div className={styles.name_container}>
+									<h1>{this.state.person.name}</h1>
+									<h2>Born {formatDate(this.state.person.birthday)}</h2>
+								</div>
 							</div>
-						</div>
-						<div className={styles.person_overview}>
-							<p>{this.state.person.biography}</p>
+							{this.state.person.biography ? (
+								<div className={styles.person_overview}>
+									<p>{this.state.person.biography}</p>
+								</div>
+							) : (
+								<></>
+							)}
 						</div>
 					</div>
 					<div className={styles.people_selector}>
@@ -87,7 +93,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 											{role.poster_path ? (
 												<div className={styles.no_poster_container}>
 													<img
-														src={`https://www.themoviedb.org/t/p/w150_and_h225_bestv2${role.poster_path}`}
+														src={`https://www.themoviedb.org/t/p/w220_and_h330_bestv2${role.poster_path}`}
 														alt={`Poster of ${role.name}`}
 													/>
 												</div>
@@ -127,7 +133,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 											{role.poster_path ? (
 												<div className={styles.no_poster_container}>
 													<img
-														src={`https://www.themoviedb.org/t/p/w150_and_h225_bestv2${role.poster_path}`}
+														src={`https://www.themoviedb.org/t/p/w220_and_h330_bestv2${role.poster_path}`}
 														alt={`Poster of ${role.name}`}
 													/>
 												</div>
