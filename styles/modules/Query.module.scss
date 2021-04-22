@@ -35,8 +35,14 @@
 			font-size: 1.1rem;
 			-webkit-appearance: none;
 			background: url("../../public/arrow16.png") no-repeat right #283845;
-			background-position-x: 244px;
+			background-position: 98% 50%;
 			margin-bottom: 2rem;
+
+			@include mixins.tablet() {
+				background-position: 98% 50%;
+				padding: 1rem;
+				font-size: 1.6rem;
+			}
 		}
 	}
 

@@ -13,6 +13,12 @@
 	color: variables.$color-logo-accent-variant;
 	background-color: variables.$color-accent;
 
+	@include mixins.tablet() {
+		height: 4rem;
+		margin-top: -4rem;
+		font-size: 1.25rem;
+	}
+
 	a {
 		text-decoration: none;
 		color: variables.$color-logo-accent;

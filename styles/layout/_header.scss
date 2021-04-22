@@ -13,6 +13,10 @@
 		color: variables.$color-logo;
 		font-size: 2rem;
 		font-weight: lighter;
+
+		@include mixins.tablet() {
+			font-size: 3.5rem;
+		}
 	}
 
 	.image_left {
@@ -28,6 +32,10 @@
 		margin-top: -15px;
 		margin-bottom: -15px;
 		width: auto;
+
+		@include mixins.tablet() {
+			height: 100px;
+		}
 	}
 
 	a {

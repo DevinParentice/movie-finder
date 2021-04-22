@@ -11,6 +11,10 @@
 		color: variables.$color-logo-accent;
 		font-family: variables.$font-body;
 		font-size: 1.5rem;
+
+		@include mixins.tablet() {
+			font-size: 2.2rem;
+		}
 	}
 
 	form {
@@ -27,7 +31,13 @@
 			font-size: 1.1rem;
 			-webkit-appearance: none;
 			background: url("../../public/arrow16.png") no-repeat right #283845;
-			background-position-x: 244px;
+			background-position: 95% 50%;
+
+			@include mixins.tablet() {
+				background-position: 98% 50%;
+				padding: 1rem;
+				font-size: 1.6rem;
+			}
 		}
 
 		.form_input {
@@ -40,6 +50,11 @@
 			padding: 0.6rem;
 			font-family: variables.$font-body;
 			font-size: 1.1rem;
+
+			@include mixins.tablet() {
+				padding: 1rem;
+				font-size: 1.6rem;
+			}
 		}
 
 		.submit_button {
@@ -54,6 +69,11 @@
 			padding: 0.25rem 0.5rem;
 			cursor: pointer;
 			float: right;
+
+			@include mixins.tablet() {
+				padding: 0.5rem 1rem;
+				font-size: 2rem;
+			}
 		}
 	}
 }
