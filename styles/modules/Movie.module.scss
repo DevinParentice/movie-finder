@@ -105,6 +105,10 @@
 				align-items: center;
 				flex-wrap: wrap;
 
+				.genres {
+					max-width: 65%;
+				}
+
 				.view_trailer_button {
 					background-color: variables.$color-accent;
 					border-radius: 8px;

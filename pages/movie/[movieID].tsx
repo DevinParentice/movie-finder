@@ -124,7 +124,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 								})}
 							<div className={styles.information_collection}>
 								<div className={styles.information_details}>
-									<div>
+									<div className={styles.genres}>
 										<h3>{this.formatGenres()}</h3>
 										<h4>
 											Rating: {this.state.movie.vote_average}{" "}
