@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import formatDate from "../../utils/formatDate";
 import styles from "../../styles/modules/Person.module.scss";
 import Footer from "../../components/Footer";
@@ -26,6 +27,13 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 	render() {
 		return (
 			<div>
+				<Head>
+					<title>Movie Magic - {this.state.person.name}</title>
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1.0"
+					/>
+				</Head>
 				<div className={styles.content_wrapper}>
 					<Header />
 					<div className={styles.movie_details}>
@@ -34,13 +42,13 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 								{this.state.person.profile_path ? (
 									<img
 										src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.person.profile_path}`}
-										alt={`Picture of ${this.state.person.title}`}
+										alt={`Picture of ${this.state.person.name}`}
 										className="movie-poster-lg"
 									/>
 								) : (
 									<img
 										src="/NoPerson.png"
-										alt={`No Picture of ${this.state.person.title}`}
+										alt={`No Picture of ${this.state.person.name}`}
 										className="movie-poster-lg"
 									/>
 								)}

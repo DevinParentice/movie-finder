@@ -17,7 +17,7 @@ export default function Home() {
 	return (
 		<div className={styles.App}>
 			<Head>
-				<title>Movie Finder</title>
+				<title>Movie Magic</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<div className={styles.content_wrapper}>

@@ -1,10 +1,10 @@
 import React from "react";
 import { withRouter, NextRouter } from "next/router";
+import Head from "next/head";
 import { GetServerSideProps } from "next";
 import formatDate from "../../utils/formatDate";
 import styles from "../../styles/modules/Movie.module.scss";
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 
 const formatter = new Intl.NumberFormat("en-US", {
 	style: "currency",
@@ -48,6 +48,13 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 	render() {
 		return (
 			<div>
+				<Head>
+					<title>Movie Magic - {this.state.movie.title}</title>
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1.0"
+					/>
+				</Head>
 				<div className={styles.content_wrapper}>
 					<div className={styles.movie_details}>
 						<div className={styles.backdrop}>
@@ -78,12 +85,13 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 								<div
 									className={styles.poster_container}
 									style={{
-										backgroundImage: `linear-gradient(
-									to bottom,
-									transparent,
-									#14181c
-								),
-								url("/NoBackdrop.png")`,
+										backgroundImage: this.state.smallScreen
+											? `linear-gradient(to bottom, transparent, #14181c),
+										url("/NoBackdrop.png")`
+											: `linear-gradient(to bottom, transparent, #14181c),
+									linear-gradient(to right, transparent 80%, #14181c),
+									linear-gradient(to left, transparent 80%, #14181c),
+									url("/NoBackdrop.png")`,
 									}}
 								></div>
 							)}

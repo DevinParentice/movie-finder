@@ -1,7 +1,7 @@
 import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import React from "react";
 import submitSearch from "../../utils/submitSearch";
 import styles from "../../styles/modules/Query.module.scss";
@@ -92,6 +92,13 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 		return (
 			<div>
+				<Head>
+					<title>Movie Magic - Search</title>
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1.0"
+					/>
+				</Head>
 				<div className={styles.content_wrapper}>
 					<Header />
 					<div className={styles.select_container}>
