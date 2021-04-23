@@ -1,13 +1,22 @@
+// Import React
+import React from "react";
+
+// Import Next.js libraries
 import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
-import submitSearch from "../../utils/submitSearch";
-import styles from "../../styles/modules/Query.module.scss";
-import Footer from "../../components/Footer";
-import formatDate from "../../utils/formatDate";
+
+// Import React Components
 import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
+// Import utility files
+import submitSearch from "../../utils/submitSearch";
+import formatDate from "../../utils/formatDate";
+
+// Import SCSS modules
+import styles from "../../styles/modules/Query.module.scss";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -16,6 +25,7 @@ interface WithRouterProps {
 interface MyComponentProps extends WithRouterProps {}
 
 class SearchResults extends React.Component<MyComponentProps, any> {
+	// Set component's state
 	constructor(props) {
 		super(props);
 
@@ -28,6 +38,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		};
 	}
 
+	// Everytime the user scrolls, check to see if they hit the bottom of the page. If so, load more results
 	handleScroll = () => {
 		const bottom =
 			Math.ceil(window.innerHeight + window.scrollY) >=
@@ -42,16 +53,19 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		}
 	};
 
+	// Add EventListener to watch users scrolling
 	async componentDidMount() {
 		window.addEventListener("scroll", this.handleScroll, {
 			passive: true,
 		});
 	}
 
+	// Remove EventListener when component unmounts
 	componentWillUnmount() {
 		window.removeEventListener("scroll", this.handleScroll);
 	}
 
+	// Change how the results are sorted when the user selects an option from the dropdown menu
 	changeSort = (e) => {
 		e.preventDefault();
 		this.setState(
@@ -66,13 +80,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 		);
 	};
 
-	submitForm = async (e) => {
-		const result = await submitSearch(e);
-		this.props.router
-			.push(`/search/${result.apiUrl}`)
-			.then(this.props.router.reload);
-	};
-
+	// Fetch the new page of results when user scrolls down to the bottom of the page
 	async fetchResults() {
 		this.setState({ pageNumber: this.state.pageNumber + 1 });
 
@@ -92,6 +100,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 		return (
 			<div>
+				{/* Add appropriate items to <head> element  */}
 				<Head>
 					<title>Movie Magic - Search</title>
 					<meta
@@ -142,6 +151,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 						</select>
 					</div>
 					<div className={styles.search_results}>
+						{/* Iterate over all of the results to display them */}
 						{this.state.results.map((result) => (
 							<section
 								key={result.id + result.vote_count}
@@ -150,6 +160,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 								<div className={styles.movie_result_poster}>
 									<Link href={`/movie/${result.id}`}>
 										<a>
+											{/* Check to see if the API has a poster available */}
 											{result.poster_path ? (
 												<img
 													src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${result.poster_path}`}
@@ -175,7 +186,6 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 												<h2>{result.title}</h2>
 											</a>
 										</Link>
-										{/* <p>{result.overview}</p> */}
 										<p>Released: {formatDate(result.release_date)}</p>
 										<p>
 											Rating: {result.vote_average}{" "}
@@ -198,6 +208,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	// Fetch data from API and pass it to React component
 	const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=$1&${query.query}`;
 	const res = await fetch(url);
 	const data = await res.json();

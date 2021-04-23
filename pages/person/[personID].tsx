@@ -1,11 +1,20 @@
+// Import React
 import React from "react";
+
+// Import Next.js libraries
 import { withRouter, NextRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import formatDate from "../../utils/formatDate";
-import styles from "../../styles/modules/Person.module.scss";
-import Footer from "../../components/Footer";
+
+// Import components
 import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
+// Import utility files
+import formatDate from "../../utils/formatDate";
+
+// Import SCSS modules
+import styles from "../../styles/modules/Person.module.scss";
 
 interface WithRouterProps {
 	router: NextRouter;
@@ -13,6 +22,7 @@ interface WithRouterProps {
 
 interface MyComponentProps extends WithRouterProps {}
 class PersonPage extends React.Component<MyComponentProps, any> {
+	// Set component's state
 	constructor(props) {
 		super(props);
 
@@ -27,6 +37,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 	render() {
 		return (
 			<div>
+				{/* Add appropriate items to <head> element  */}
 				<Head>
 					<title>Movie Magic - {this.state.person.name}</title>
 					<meta
@@ -98,6 +109,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 						</ul>
 					</div>
 					<div className={styles.card_container}>
+						{/* Iterate over each role and display it as a card */}
 						{this.state.creditsDisplay.map((role, index) => {
 							if (role.hasOwnProperty("character")) {
 								return (
@@ -175,15 +187,19 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	// Fetch person's information from API
 	const personUrl = `https://api.themoviedb.org/3/person/${query.personID}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
 	const res1 = await fetch(personUrl);
 	const person = await res1.json();
 
+	// Fetch what the person has starred in and/or worked on from API
 	const url = `https://api.themoviedb.org/3/person/${query.personID}/movie_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
 	const res2 = await fetch(url);
 	const credits = await res2.json();
 	let creditsDisplay = [];
 	let active = "";
+
+	// If the person has worked on more movies than starred in, set the default display to show that
 	if (credits.cast.length >= credits.crew.length) {
 		creditsDisplay = credits.cast;
 		active = "Cast";
@@ -191,6 +207,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 		creditsDisplay = credits.crew;
 		active = "Crew";
 	}
+
+	// Pass API results to component's props
 	return {
 		props: {
 			person,

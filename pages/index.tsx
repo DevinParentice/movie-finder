@@ -1,21 +1,35 @@
+// Import React
 import React from "react";
+
+// Import Next.js libraries
 import Head from "next/head";
 import { useRouter } from "next/router";
+
+// Import React components
 import Options from "../components/Options";
 import Footer from "../components/Footer";
+
+// Import utility files
 import submitSearch from "../utils/submitSearch";
+
+// Import SCSS module
 import styles from "../styles/modules/Home.module.scss";
 
 export default function Home() {
+	// Intialize Next.js router
 	const router = useRouter();
 
+	// Change data from form into something that the API can read
 	const submitForm = async (e) => {
 		const result = await submitSearch(e);
+
+		// Change current URL
 		router.push(`/search/${result.apiUrl}`);
 	};
 
 	return (
 		<div className={styles.App}>
+			{/* Add appropriate items to <head> element  */}
 			<Head>
 				<title>Movie Magic</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,6 +61,8 @@ export default function Home() {
 					</svg>
 					<h1 className={styles.logo}>Movie Magic</h1>
 				</header>
+
+				{/* Start of form */}
 				<section className={styles.form_container}>
 					<form onSubmit={submitForm} autoComplete="off">
 						<p className={styles.form_text}>Find me movies...</p>

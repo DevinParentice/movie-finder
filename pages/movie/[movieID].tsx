@@ -1,21 +1,31 @@
+// Import React
 import React from "react";
+
+// Import Next.js libraries
+import { GetServerSideProps } from "next";
 import { withRouter, NextRouter } from "next/router";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
-import formatDate from "../../utils/formatDate";
-import styles from "../../styles/modules/Movie.module.scss";
+
+// Import React Components
 import Footer from "../../components/Footer";
 
+// Import utility files
+import formatDate from "../../utils/formatDate";
+import styles from "../../styles/modules/Movie.module.scss";
+
+// Initialize a formatter to format budget and revenue of the movie to USD
 const formatter = new Intl.NumberFormat("en-US", {
 	style: "currency",
 	currency: "USD",
 });
+
 interface WithRouterProps {
 	router: NextRouter;
 }
 
 interface MyComponentProps extends WithRouterProps {}
 class MoviePage extends React.Component<MyComponentProps, any> {
+	// Set component's state
 	constructor(props) {
 		super(props);
 
@@ -29,6 +39,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 		};
 	}
 
+	// Check window's width when component first mounts
 	componentDidMount() {
 		const width = window.innerWidth;
 		if (width < 800) {
@@ -36,6 +47,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 		}
 	}
 
+	// Format the genres into something more readable
 	formatGenres() {
 		let genres = "";
 		this.state.movie.genres &&
@@ -48,6 +60,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 	render() {
 		return (
 			<div>
+				{/* Add appropriate items to <head> element  */}
 				<Head>
 					<title>Movie Magic - {this.state.movie.title}</title>
 					<meta
@@ -106,6 +119,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 							<h2 className={styles.release_date}>
 								Released {formatDate(this.state.movie.release_date)}
 							</h2>
+							{/* Iterate over crew members and display each one */}
 							{this.state.people.crew &&
 								this.state.people.crew.map((castMember) => {
 									if (castMember.job === "Director") {
@@ -205,6 +219,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 					</div>
 					<div className={styles.card_container}>
 						{this.state.peopleDisplay &&
+							// Display each card for every person
 							this.state.peopleDisplay.map((person, index) => {
 								if (person.character) {
 									return (
@@ -265,16 +280,19 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	// Fetch movie information from API
 	const movieUrl = `https://api.themoviedb.org/3/movie/${query.movieID}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&append_to_response=videos`;
 	const res1 = await fetch(movieUrl);
 	const movie = await res1.json();
 
+	// Fetch cast & crew information from API
 	const peopleUrl = `https://api.themoviedb.org/3/movie/${query.movieID}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
 	const res2 = await fetch(peopleUrl);
 	const people = await res2.json();
 
 	const peopleDisplay = people.cast;
 
+	// Pass API results to component's props
 	return {
 		props: {
 			movie,
