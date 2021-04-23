@@ -54,6 +54,10 @@
 				@include mixins.tablet() {
 					flex-wrap: wrap;
 				}
+
+				@include mixins.desktop() {
+					flex-direction: column;
+				}
 			}
 
 			img {
@@ -71,6 +75,7 @@
 
 			@include mixins.tablet() {
 				flex-wrap: nowrap;
+				justify-content: space-evenly;
 			}
 		}
 	}
@@ -82,12 +87,24 @@
 		border-radius: 10px;
 		margin: 0 1em;
 		margin-bottom: 1em;
+
+		.overview_header {
+			display: none;
+			@include mixins.tablet() {
+				display: block;
+			}
+		}
+
 		p {
 			white-space: pre-line;
 		}
 
 		@include mixins.tablet() {
 			font-size: 1.2rem;
+		}
+
+		@include mixins.desktop() {
+			max-width: 50%;
 		}
 	}
 }

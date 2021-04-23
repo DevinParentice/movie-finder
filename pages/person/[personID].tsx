@@ -59,6 +59,7 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 							</div>
 							{this.state.person.biography ? (
 								<div className={styles.person_overview}>
+									<h2 className={styles.overview_header}>Overview:</h2>
 									<p>{this.state.person.biography}</p>
 								</div>
 							) : (
