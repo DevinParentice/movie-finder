@@ -25,8 +25,17 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 			peopleDisplay: props.peopleDisplay,
 			loading: true,
 			active: "Cast",
+			smallScreen: false,
 		};
 	}
+
+	componentDidMount() {
+		const width = window.innerWidth;
+		if (width < 800) {
+			this.setState({ smallScreen: true });
+		}
+	}
+
 	formatGenres() {
 		let genres = "";
 		this.state.movie.genres &&
@@ -40,43 +49,45 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 		return (
 			<div>
 				<div className={styles.content_wrapper}>
-					{/* <Header /> */}
 					<div className={styles.movie_details}>
-						{this.state.movie.backdrop_path ? (
-							<div
-								className={styles.poster_container}
-								style={{
-									backgroundImage: `linear-gradient(
+						<div className={styles.backdrop}>
+							{this.state.movie.backdrop_path ? (
+								<div
+									className={styles.poster_container}
+									style={{
+										backgroundImage: this.state.smallScreen
+											? `linear-gradient(to bottom, transparent, #14181c),
+										url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${this.state.movie.backdrop_path}")`
+											: `linear-gradient(to bottom, transparent, #14181c),
+									linear-gradient(to right, transparent 80%, #14181c),
+									linear-gradient(to left, transparent 80%, #14181c),
+									url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${this.state.movie.backdrop_path}")`,
+									}}
+								>
+									<div className={styles.mobile_header}>
+										<a href="/">
+											<img
+												className={styles.home_button}
+												src="/home256.png"
+												alt="Home button"
+											/>
+										</a>
+									</div>
+								</div>
+							) : (
+								<div
+									className={styles.poster_container}
+									style={{
+										backgroundImage: `linear-gradient(
 									to bottom,
 									transparent,
 									#14181c
 								),
-								url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${this.state.movie.backdrop_path}")`,
-								}}
-							>
-								<div className={styles.mobile_header}>
-									<a href="/">
-										<img
-											className={styles.home_button}
-											src="/home256.png"
-											alt="Home button"
-										/>
-									</a>
-								</div>
-							</div>
-						) : (
-							<div
-								className={styles.poster_container}
-								style={{
-									backgroundImage: `linear-gradient(
-								to bottom,
-								transparent,
-								#14181c
-							),
-							url("/NoBackdrop.png")`,
-								}}
-							></div>
-						)}
+								url("/NoBackdrop.png")`,
+									}}
+								></div>
+							)}
+						</div>
 
 						<div>
 							<h1 className={styles.movie_title}>{this.state.movie.title}</h1>
@@ -124,6 +135,7 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 											<div></div>
 										)}
 									</div>
+
 									{this.state.movie.poster_path ? (
 										<img
 											src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${this.state.movie.poster_path}`}
@@ -133,10 +145,12 @@ class MoviePage extends React.Component<MyComponentProps, any> {
 									) : (
 										<img src="/NoPoster.png" alt="No Poster Found" />
 									)}
-								</div>
-								<div className={styles.overview_container}>
-									<h4 className={styles.tagline}>{this.state.movie.tagline}</h4>
-									<p>{this.state.movie.overview}</p>
+									<div className={styles.overview_container}>
+										<h4 className={styles.tagline}>
+											{this.state.movie.tagline}
+										</h4>
+										<p>{this.state.movie.overview}</p>
+									</div>
 								</div>
 							</div>
 							<div className={styles.details_collection}>
