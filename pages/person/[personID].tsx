@@ -33,6 +33,10 @@ class PersonPage extends React.Component<MyComponentProps, any> {
 						name="viewport"
 						content="width=device-width, initial-scale=1.0"
 					/>
+					<meta
+						name="description"
+						content="Movie Magic is the new way to search for the movies you are looking for."
+					/>
 				</Head>
 				<div className={styles.content_wrapper}>
 					<Header />
