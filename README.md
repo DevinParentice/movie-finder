@@ -10,6 +10,7 @@
 ## Install
 
 ```sh
+git clone https://github.com/DevinParentice/movie-magic.git
 npm install
 ```
 
