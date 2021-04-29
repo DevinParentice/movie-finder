@@ -14,7 +14,7 @@ export default function getGenres(genre: string): string {
 		{ id: 10402, name: "music" },
 		{ id: 9648, name: "mystery" },
 		{ id: 10749, name: "romance" },
-		{ id: 878, name: "science siction" },
+		{ id: 878, name: "science fiction" },
 		{ id: 10770, name: "tv movie" },
 		{ id: 53, name: "thriller" },
 		{ id: 10752, name: "war" },

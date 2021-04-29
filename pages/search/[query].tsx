@@ -12,7 +12,6 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 // Import utility files
-import submitSearch from "../../utils/submitSearch";
 import formatDate from "../../utils/formatDate";
 
 // Import SCSS modules

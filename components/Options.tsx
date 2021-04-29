@@ -95,8 +95,8 @@ export default function Options() {
 						<option value="music">Music</option>
 						<option value="mystery">Mystery</option>
 						<option value="romance">Romance</option>
-						<option value="science-fiction">Science Fiction</option>
-						<option value="tv-movie">TV Movie</option>
+						<option value="science fiction">Science Fiction</option>
+						<option value="tv movie">TV Movie</option>
 						<option value="thriller">Thriller</option>
 						<option value="war">War</option>
 						<option value="western">Western</option>
