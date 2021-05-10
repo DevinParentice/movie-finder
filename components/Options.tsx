@@ -179,7 +179,7 @@ export default function Options() {
 		<div>
 			{selects.map((select, index) => {
 				return (
-					<div key={index}>
+					<div key={index} className={styles.select_container}>
 						<select
 							name={select}
 							id={`select-${index}`}

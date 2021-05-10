@@ -19,6 +19,35 @@
 		}
 	}
 
+	.no_results {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-top: 10%;
+		text-align: center;
+		h2 {
+			color: white;
+			font-size: 2em;
+			margin-bottom: 1em;
+
+			@include mixins.tablet() {
+				font-size: 3em;
+			}
+		}
+
+		a {
+			font-size: 1.5em;
+			&:hover {
+				color: gray;
+			}
+
+			@include mixins.tablet() {
+				font-size: 2em;
+			}
+		}
+	}
+
 	.select_container {
 		display: flex;
 		justify-content: center;

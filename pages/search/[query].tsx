@@ -94,7 +94,29 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 
 	render() {
 		if (!this.state.results.length) {
-			return <div>Search returned no results.</div>;
+			return (
+				<div>
+					<Head>
+						<title>Movie Magic - Search</title>
+						<meta
+							name="viewport"
+							content="width=device-width, initial-scale=1.0"
+						/>
+						<meta
+							name="description"
+							content="Movie Magic is the new way to search for the movies you are looking for."
+						/>
+					</Head>
+					<div className={styles.content_wrapper}>
+						<Header />
+						<div className={styles.no_results}>
+							<h2>No results found with those parameters.</h2>
+							<a href="/">Return home</a>
+						</div>
+					</div>
+					<Footer />
+				</div>
+			);
 		}
 
 		return (
