@@ -3,7 +3,14 @@
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
-> Use full sentences to search for movies the smarter way.
+<p>Use full sentences to search for movies the smarter way.</p>
+<p>Find information on movies, actors, and crew members.</p>
+
+<h2>Examples:</h2>
+
+<p>Find all movies worked on by Quentin Tarantino with the genres Action, Drama, and were released before the year 2010</p>
+<p>Find all movies starring Scarlett Johansson with a rating above 8.2, released after the year 2000</p>
+<p>Find all movies with the genre Comedy, released before the year 1970, with a rating of less than 4.0</p>
 
 ### 🏠 [Homepage](https://www.moviemagic.dev/)
 
