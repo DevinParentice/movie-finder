@@ -1,6 +1,9 @@
 <h1 align="center">Welcome to Movie Magic</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Status" src="https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fwww.moviemagic.dev%2F" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/DevinParentice/movie-magic" />
+  <img alt="Issues" src="https://img.shields.io/github/issues/DevinParentice/movie-magic" />
 </p>
 
 <p>Use full sentences to search for movies the smarter way.</p>
