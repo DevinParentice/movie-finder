@@ -1,6 +1,5 @@
 export default async function submitSearch(e) {
 	e.preventDefault();
-	console.log(e);
 	const arr = [...e.target.elements].slice(0, -2);
 	let formData = {};
 	for (let i = 0; i < arr.length; i += 2) {
@@ -19,6 +18,5 @@ export default async function submitSearch(e) {
 	});
 
 	const result = await res.json();
-	console.log(result);
 	return result;
 }

@@ -171,6 +171,10 @@
 					max-width: 50%;
 				}
 			}
+
+			@include mixins.desktop() {
+				margin: 0 15%;
+			}
 		}
 
 		.details_collection {
@@ -180,6 +184,10 @@
 
 			@include mixins.tablet() {
 				font-size: 1.25rem;
+			}
+
+			@include mixins.desktop() {
+				margin-left: 15%;
 			}
 		}
 	}

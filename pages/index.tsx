@@ -1,5 +1,5 @@
-// Import React
-import React from "react";
+// Import React & useState to create a stateful component
+import React, { useState } from "react";
 
 // Import Next.js libraries
 import Head from "next/head";
@@ -16,14 +16,22 @@ import submitSearch from "../utils/submitSearch";
 import styles from "../styles/modules/Home.module.scss";
 
 export default function Home() {
+	// Create a state called isSearching
+	const [isSearching, setIsSearching] = useState(false);
+
 	// Intialize Next.js router
 	const router = useRouter();
 
 	// Change data from form into something that the API can read
 	const submitForm = async (e) => {
+		setIsSearching(true);
 		const result = await submitSearch(e);
 
 		// Change current URL
+		console.log(result.apiUrl);
+		if (!result.apiUrl) {
+			result.apiUrl = "with_cast=0";
+		}
 		router.push(`/search/${result.apiUrl}`);
 	};
 
@@ -38,6 +46,16 @@ export default function Home() {
 					content="Movie Magic is the new way to search for the movies you are looking for."
 				/>
 			</Head>
+			{isSearching && (
+				<div className={styles.loading_modal}>
+					<div className={styles.spinner}>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+			)}
 			<div className={styles.content_wrapper}>
 				<header className={styles.logo_container}>
 					<svg

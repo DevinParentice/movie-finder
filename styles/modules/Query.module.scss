@@ -38,9 +38,9 @@
 
 		a {
 			font-size: 1.5em;
-			&:hover {
-				color: gray;
-			}
+			background-color: variables.$color-accent;
+			padding: 5px 15px;
+			border-radius: 10px;
 
 			@include mixins.tablet() {
 				font-size: 2em;
@@ -51,7 +51,6 @@
 	.select_container {
 		display: flex;
 		justify-content: center;
-		border-bottom: 2px solid variables.$color-accent;
 		margin-top: 2em;
 
 		.sort_select {
@@ -76,10 +75,14 @@
 	}
 
 	.search_results {
+		margin: 1rem 5% 8rem 5%;
+		background-color: variables.$color-accent;
+		border-radius: 15px;
+
 		section {
 			display: flex;
-			border-top: 2px solid variables.$color-accent;
-			border-bottom: 2px solid variables.$color-accent;
+			border-top: 2px solid variables.$color-main;
+			border-bottom: 2px solid variables.$color-main;
 
 			.movie_result_poster {
 				display: flex;
@@ -124,6 +127,10 @@
 					}
 				}
 			}
+		}
+
+		@include mixins.laptop() {
+			margin: 1rem 15% 8rem 15%;
 		}
 	}
 

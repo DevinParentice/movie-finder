@@ -93,6 +93,9 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 	}
 
 	render() {
+		{
+			console.log(this.state.results.length);
+		}
 		if (!this.state.results.length) {
 			return (
 				<div>
@@ -167,7 +170,7 @@ class SearchResults extends React.Component<MyComponentProps, any> {
 									Average Rating Ascending
 								</option>
 								<option value="vote_count.desc">Rating Count Descending</option>
-								<option value="vote_count.asc">Rating Count Descending</option>
+								<option value="vote_count.asc">Rating Count Ascending</option>
 							</optgroup>
 						</select>
 					</div>
